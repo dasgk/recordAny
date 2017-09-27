@@ -19,13 +19,13 @@
         <a class="logo" href="http://www.jianshu.com/"><img src="{{asset('images/logo.jpg')}}" alt="Logo"></a>
         <!-- 右上角 -->
         <!-- 登录显示写文章 -->
-        <a class="btn write-btn"  href="{{'/show_new_record?p=c'}}">
+        <a class="btn write-btn" href="{{'/show_new_record?p=c'}}">
             <i class="glyphicon glyphicon-edit"></i>写文章
         </a>
         <!-- 如果用户登录，显示下拉菜单 -->
         <div class="user">
             <div data-hover="dropdown">
-                <a class="avatar" href="http://www.jianshu.com/u/470804248757"><img src="{{asset('images/default_user.png')}}" alt="120"></a>
+                <a class="avatar" href="http://www.jianshu.com/u/470804248757"><img src="{{$avatar}}" alt="120"></a>
             </div>
             <ul class="dropdown-menu">
                 <li>
@@ -83,35 +83,37 @@
             <div id="list-container">
                 <!-- 文章列表模块 -->
                 <ul class="note-list" infinite-scroll-url="/">
-                    <li id="note-17274472" data-note-id="17274472" class="have-img">
-                        <a class="wrap-img" href="http://www.jianshu.com/p/2b234e1630d8" target="_blank">
-                            <img class="img-blur-done" src="{{asset('images/default_list.jpg')}}" alt="120">
-                        </a>
-                        <div class="content">
-                            <div class="author">
-                                <a class="avatar" target="_blank" href="http://www.jianshu.com/u/546f95e0a658">
-                                    <img src="{{asset('images/default_user.png')}}" onerror="{{asset('images/default_user.png')}}" alt="64">
-                                </a>
-                                <div class="name">
-                                    <a class="blue-link" target="_blank" href="http://www.jianshu.com/u/546f95e0a658">米那</a>
-                                    <span class="time" data-shared-at="2017-09-19T19:29:55+08:00">09.19 19:29</span>
+                    @foreach($article_list as $item)
+                        <li id="note-17274472" data-note-id="17274472" class="have-img">
+                            <a class="wrap-img" href="http://www.jianshu.com/p/2b234e1630d8" target="_blank">
+                                <img class="img-blur-done" src="{{asset('images/default_list.jpg')}}" alt="120">
+                            </a>
+                            <div class="content">
+                                <div class="author">
+                                    <a class="avatar" target="_blank" href="{{url('user/center?p=c&uid='.$item->user_id)}}">
+                                        <img src="{{$item->avatar}}" alt="64">
+                                    </a>
+                                    <div class="name">
+                                        <a class="blue-link" target="_blank" href="http://www.jianshu.com/u/546f95e0a658">{{$item->nick_name}}</a>
+                                        <span class="time" data-shared-at="2017-09-19T19:29:55+08:00">{{$item->updated_at}}</span>
+                                    </div>
+                                </div>
+                                <a class="title" target="_blank" href="http://www.jianshu.com/p/2b234e1630d8">{{$item->title}}</a>
+                                <p class="abstract">
+                                    {{$item->content}}
+                                </p>
+                                <div class="meta">
+                                    <a class="collection-tag" target="_blank" href="http://www.jianshu.com/c/fcd7a62be697">世间事</a>
+                                    <a target="_blank" href="http://www.jianshu.com/p/2b234e1630d8">
+                                        <i class="glyphicon glyphicon-eye-open"></i>{{$item->look_num}}
+                                    </a>
+                                    <a target="_blank" href="http://www.jianshu.com/p/2b234e1630d8#comments">
+                                        <i class="glyphicon glyphicon-thumbs-up"></i> {{$item->like_num}}
+                                    </a> <span><i class="glyphicon glyphicon-comment"></i> {{$item->comment_num}}</span>
                                 </div>
                             </div>
-                            <a class="title" target="_blank" href="http://www.jianshu.com/p/2b234e1630d8">再白点高点瘦点，我就是别人的老婆了</a>
-                            <p class="abstract">
-                                亲爱的，山水初相逢，你曾欣喜我如你生命中的一汪清泉，明见你生命中的斑驳阴影。 2017年9月19日 星期二 晴 01 穿了新买的花裙子，感觉镜子里的自己多了几分明媚。于...
-                            </p>
-                            <div class="meta">
-                                <a class="collection-tag" target="_blank" href="http://www.jianshu.com/c/fcd7a62be697">世间事</a>
-                                <a target="_blank" href="http://www.jianshu.com/p/2b234e1630d8">
-                                    <i class="glyphicon glyphicon-eye-open"></i> 9916
-                                </a>
-                                <a target="_blank" href="http://www.jianshu.com/p/2b234e1630d8#comments">
-                                    <i class="glyphicon glyphicon-thumbs-up"></i> 354
-                                </a> <span><i class="glyphicon glyphicon-comment"></i> 520</span>
-                            </div>
-                        </div>
-                    </li>
+                            @endforeach
+                        </li>
                 </ul>
                 <!-- 文章列表模块 -->
             </div>
