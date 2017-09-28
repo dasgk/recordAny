@@ -39,10 +39,19 @@ class RebuildIndex extends Command
 	{
 		$path = __DIR__ . '\\..\\..\\..\\vendor\\hightman\\xunsearch\\util\\Indexer.php';
 		//清除缓存
-		exec("php ".$path.' -c GBK --clean demo');
-		echo 'clean index'.PHP_EOL;
-		//重建缓存
-		exec("php ".$path.' -c GBK --rebuild --source=mysql://root:root@localhost/recordany --sql="SELECT  users.user_id,users.nick_name,article.title,article.content,article.id FROM `article` join users on users.user_id=article.uid;" --project=demo');
-		echo 'rebuild index completed'.PHP_EOL;
+		exec("php ".$path.' -c GBK --clean article');
+		echo 'clean article index'.PHP_EOL;
+		exec("php ".$path.' -c GBK --clean user');
+
+		echo 'clean user  index'.PHP_EOL;
+
+		//重建索引
+		echo exec("php ".$path.' -c GBK --rebuild --source=mysql://root:root@localhost/recordany --sql="SELECT  article.title,article.content,article.id FROM `article`	 " --project=article');
+
+		echo 'rebuild article index completed'.PHP_EOL;
+
+		//重建索引
+		echo exec("php ".$path.' -c GBK --rebuild --source=mysql://root:root@localhost/recordany --sql="SELECT  user_id,nick_name FROM `users` " --project=user');
+		echo 'rebuild user index completed'.PHP_EOL;
 	}
 }
