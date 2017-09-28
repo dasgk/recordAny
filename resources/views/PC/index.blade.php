@@ -84,11 +84,11 @@
 
         <div class="links">
             @if (Auth::check())
-                <a href="{{url("/show_new_record?p=c")}}">New Record</a>
+                <a href="{{url("/article/show_new_record?p=c")}}">New Record</a>
             @else
                 <a href="javascript:void(0)" onclick="showLoginPage()">Login</a>
             @endif
-            <a href="{{url("/content?p=c")}}">Just Look</a>
+            <a href="{{url("/article/content?p=c")}}">Just Look</a>
         </div>
     </div>
 </div>

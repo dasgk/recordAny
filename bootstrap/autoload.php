@@ -16,4 +16,4 @@ define('LARAVEL_START', microtime(true));
 
 require __DIR__.'/../vendor/autoload.php';
 require __DIR__ . '/../app/Libraries/helpers.php';
-//require_once '/../vendor/xunsearch/lib/XS.php';
+require __DIR__.'/../vendor/hightman/xunsearch/lib/XS.class.php';
