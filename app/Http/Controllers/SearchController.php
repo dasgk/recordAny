@@ -11,8 +11,8 @@ class SearchController extends Controller
 		$m = config_path($ini_file);
 		$xs = new XS($m);
 		$search = $xs->search; // 获取 搜索对象
-		//$search->setQuery($query)//按照chrono 正序排列
-		$search
+		$search->setQuery($query)//按照chrono 正序排列
+		//$search
 		->setLimit(20, 0);// 设置搜索语句, 分页, 偏移量
 		$docs = $search->search(); // 执行搜索，将搜索结果文档保存在 $docs 数组中
 		//var_dump($query);
