@@ -56,9 +56,9 @@
                     </ul>
                     </li>
                     <li class="search">
-                        <form target="_blank" action="http://www.jianshu.com/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="✓">
-                            <input type="text" name="q" id="q" value="" autocomplete="off" width="50" placeholder="用户昵称，文章标题或者内容" class="search-input">
-                            <a class="search-btn" href="javascript:void(null)" style="margin-top:3%"><i class="glyphicon glyphicon-search"></i></a>
+                        <form  action="{{url('/search/demo')}}" accept-charset="UTF-8" method="get" id="search_form"><input name="utf8" type="hidden" >
+                            <input type="text" name="key" id="q" value="" autocomplete="off" width="50" placeholder="用户昵称，文章标题或者内容" class="search-input">
+                            <a class="search-btn" href="javascript:submit_search();" style="margin-top:3%"><i class="glyphicon glyphicon-search"></i></a>
                         </form>
                     </li>
                 </ul>
@@ -125,4 +125,9 @@
     </div>
 </div>
 </body>
+<script>
+    function submit_search() {
+        document.getElementById('search_form').submit();
+    }
+</script>
 </html>

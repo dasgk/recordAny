@@ -39,19 +39,20 @@ class RebuildIndex extends Command
 	{
 		$path = __DIR__ . '\\..\\..\\..\\vendor\\hightman\\xunsearch\\util\\Indexer.php';
 		//清除缓存
-		exec("php ".$path.' -c GBK --clean article');
-		echo 'clean article index'.PHP_EOL;
-		exec("php ".$path.' -c GBK --clean user');
-
-		echo 'clean user  index'.PHP_EOL;
-
-		//重建索引
-		echo exec("php ".$path.' -c GBK --rebuild --source=mysql://root:root@localhost/recordany --sql="SELECT  article.title,article.content,article.id FROM `article`	 " --project=article');
-
-		echo 'rebuild article index completed'.PHP_EOL;
+		exec("php " . $path . ' -c GBK --clean article');
+		echo 'clean article index' . PHP_EOL;
+		exec("php " . $path . ' -c GBK --clean user');
+		echo 'clean user  index' . PHP_EOL;
 
 		//重建索引
-		echo exec("php ".$path.' -c GBK --rebuild --source=mysql://root:root@localhost/recordany --sql="SELECT  user_id,nick_name FROM `users` " --project=user');
-		echo 'rebuild user index completed'.PHP_EOL;
+		echo exec("php " . $path . ' -c GBK --rebuild --source=mysql://root:root@localhost/recordany --sql="SELECT  article.title,article.content,article.id FROM `article`	 " --project=article', $out_put);
+		print_r($out_put);
+
+		echo 'rebuild article index completed' . PHP_EOL;
+		unset($out_put);
+		//重建索引
+		echo exec("php " . $path . ' -c GBK --rebuild --source=mysql://root:root@localhost/recordany --sql="SELECT  user_id,nick_name FROM `users` " --project=user', $out_put);
+		print_r($out_put);
+		echo 'rebuild user index completed' . PHP_EOL;
 	}
 }

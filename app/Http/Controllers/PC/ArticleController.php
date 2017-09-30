@@ -13,6 +13,7 @@ class ArticleController extends Controller
 
 	/**
 	 * 展示文章页面
+	 *
 	 * @author zjy 20170927
 	 * @param Request $request
 	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -22,6 +23,15 @@ class ArticleController extends Controller
 		$aritcle_id = $request->input('article_id', 0);
 		$article = ArticleModel::findOrNew($aritcle_id);
 		return view('PC.article.index', array('article' => $article));
+	}
+
+	public function is_article_own($article, $user_id)
+	{
+		$res = true;
+		if ($article->exists && $article->uid != $user_id) {
+			$res = false;
+		}
+		return $res;
 	}
 
 	/**
@@ -45,7 +55,13 @@ class ArticleController extends Controller
 			return $this->error($msg);
 		}
 		$article_id = request('article_id');
+		//判断该文章是否是自己的
+		$uid = Auth::user()->user_id;
 		$article = ArticleModel::findorNew($article_id);
+		$is_right_authorize = $this->is_article_own($article, $uid);
+		if(!$is_right_authorize){
+			return $this->error('您没有修改权限');
+		}
 		$uid = Auth::user()->user_id;
 		$article->uid = $uid;
 		$article->title = $title;

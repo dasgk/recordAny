@@ -64,7 +64,7 @@
             return;
         }
         data = {"title": title, "content": content, '_token': "{{csrf_token()}}",'article_id':$("#article_id").val()};
-        ajaxFunction('post', data, "{{url('/save_article?p=c')}}", submit_after);
+        ajaxFunction('post', data, "{{url('/article/save_article?p=c')}}", submit_after);
     }
 </script>
 </body>
