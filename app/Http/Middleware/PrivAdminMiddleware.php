@@ -25,7 +25,6 @@ class PrivAdminMiddleware
 				return response('Unallowed.')->header('Content-Type', 'text/plain');
 			}
 		}
-
 		return $next($request);
 	}
 }
