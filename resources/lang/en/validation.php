@@ -48,8 +48,6 @@ return [
     'integer'              => 'The :attribute must be an integer.',
     'ip'                   => 'The :attribute must be a valid IP address.',
     'json'                 => 'The :attribute must be a valid JSON string.',
-	'phone'					=>'手机格式不正确',
-	'pwd'					=>'密码不能含有中文、空格、表情符号且长度在4-20之间',
     'max'                  => [
         'numeric' => 'The :attribute may not be greater than :max.',
         'file'    => 'The :attribute may not be greater than :max kilobytes.',

@@ -16,7 +16,7 @@ return [
     |
     */
 
-    'driver' => env('SESSION_DRIVER', 'file'),
+    'driver' => env('SESSION_DRIVER', 'cookie'),
 
     /*
     |--------------------------------------------------------------------------
@@ -29,7 +29,8 @@ return [
     |
     */
 
-    'lifetime' => 120,
+    // session过期时间，也包括表单页面的token
+    'lifetime' => 300,
 
     'expire_on_close' => false,
 
@@ -122,7 +123,7 @@ return [
     |
     */
 
-    'cookie' => 'laravel_session',
+    'cookie' => 'hd_session',
 
     /*
     |--------------------------------------------------------------------------

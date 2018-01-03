@@ -5,6 +5,7 @@ namespace Illuminate\Auth;
 use RuntimeException;
 use Illuminate\Support\Str;
 use Illuminate\Http\Response;
+use Illuminate\Support\Traits\Macroable;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Contracts\Events\Dispatcher;
@@ -16,7 +17,7 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 
 class SessionGuard implements StatefulGuard, SupportsBasicAuth
 {
-    use GuardHelpers;
+    use GuardHelpers, Macroable;
 
     /**
      * The name of the Guard. Typically "session".
@@ -155,7 +156,7 @@ class SessionGuard implements StatefulGuard, SupportsBasicAuth
     /**
      * Pull a user from the repository by its "remember me" cookie token.
      *
-     * @param  string  $recaller
+     * @param  \Illuminate\Auth\Recaller  $recaller
      * @return mixed
      */
     protected function userFromRecaller($recaller)
@@ -346,7 +347,6 @@ class SessionGuard implements StatefulGuard, SupportsBasicAuth
      */
     public function attempt(array $credentials = [], $remember = false)
     {
-
         $this->fireAttemptEvent($credentials, $remember);
 
         $this->lastAttempted = $user = $this->provider->retrieveByCredentials($credentials);
@@ -354,7 +354,6 @@ class SessionGuard implements StatefulGuard, SupportsBasicAuth
         // If an implementation of UserInterface was returned, we'll ask the provider
         // to validate the user against the given credentials, and if they are in
         // fact valid we'll log the users into the application and return true.
-
         if ($this->hasValidCredentials($user, $credentials)) {
             $this->login($user, $remember);
 
@@ -378,7 +377,6 @@ class SessionGuard implements StatefulGuard, SupportsBasicAuth
      */
     protected function hasValidCredentials($user, $credentials)
     {
-
         return ! is_null($user) && $this->provider->validateCredentials($user, $credentials);
     }
 

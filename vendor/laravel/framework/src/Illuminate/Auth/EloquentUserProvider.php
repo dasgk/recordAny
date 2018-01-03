@@ -44,7 +44,11 @@ class EloquentUserProvider implements UserProvider
      */
     public function retrieveById($identifier)
     {
-        return $this->createModel()->newQuery()->find($identifier);
+        $model = $this->createModel();
+
+        return $model->newQuery()
+            ->where($model->getAuthIdentifierName(), $identifier)
+            ->first();
     }
 
     /**
@@ -103,7 +107,6 @@ class EloquentUserProvider implements UserProvider
 
         foreach ($credentials as $key => $value) {
             if (! Str::contains($key, 'password')) {
-
                 $query->where($key, $value);
             }
         }
@@ -121,8 +124,8 @@ class EloquentUserProvider implements UserProvider
     public function validateCredentials(UserContract $user, array $credentials)
     {
         $plain = $credentials['password'];
-        $res = $this->hasher->check($plain, $user->getAuthPassword());
-        return $res;
+
+        return $this->hasher->check($plain, $user->getAuthPassword());
     }
 
     /**

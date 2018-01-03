@@ -8,67 +8,55 @@ use Illuminate\Auth\Events\Registered;
 
 trait RegistersUsers
 {
-	use RedirectsUsers;
+    use RedirectsUsers;
 
-	/**
-	 * Show the application registration form.
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
-	public function showRegistrationForm()
-	{
-		return view('auth.register');
-	}
+    /**
+     * Show the application registration form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showRegistrationForm()
+    {
+        return view('auth.register');
+    }
 
-	/**
-	 * Handle a registration request for the application.
-	 *
-	 * @param  \Illuminate\Http\Request $request
-	 * @return \Illuminate\Http\Response
-	 */
-	public function register(Request $request)
-	{
-		$msg = $this->validator($request->all(), $request);
+    /**
+     * Handle a registration request for the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
 
-		if ($msg === true) {
-			event(new Registered($user = $this->create($request->all())));
-			$this->guard()->login($user);
-			$this->registered($request, $user);
-			if ($request->expectsJson()) {
-				return response()->json('success', 200);
-			} else {
-				return redirect($this->redirectPath());
-			}
+        event(new Registered($user = $this->create($request->all())));
 
-		} else {
-			//注册失败
-			if ($request->expectsJson()) {
-				return response()->json($msg, 200);
-			} else {
-				return redirect($this->redirectPath());
-			}
-		}
-	}
+        $this->guard()->login($user);
 
-	/**
-	 * Get the guard to be used during registration.
-	 *
-	 * @return \Illuminate\Contracts\Auth\StatefulGuard
-	 */
-	protected function guard()
-	{
-		return Auth::guard();
-	}
+        return $this->registered($request, $user)
+                        ?: redirect($this->redirectPath());
+    }
 
-	/**
-	 * The user has been registered.
-	 *
-	 * @param  \Illuminate\Http\Request $request
-	 * @param  mixed $user
-	 * @return mixed
-	 */
-	protected function registered(Request $request, $user)
-	{
-		//
-	}
+    /**
+     * Get the guard to be used during registration.
+     *
+     * @return \Illuminate\Contracts\Auth\StatefulGuard
+     */
+    protected function guard()
+    {
+        return Auth::guard();
+    }
+
+    /**
+     * The user has been registered.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return mixed
+     */
+    protected function registered(Request $request, $user)
+    {
+        //
+    }
 }

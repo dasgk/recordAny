@@ -52,7 +52,6 @@ trait ValidatesRequests
         $validator = $this->getValidationFactory()->make($request->all(), $rules, $messages, $customAttributes);
 
         if ($validator->fails()) {
-
             $this->throwValidationException($request, $validator);
         }
     }

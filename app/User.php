@@ -7,8 +7,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-	protected $table = 'users';
-	protected $primaryKey = 'user_id';
     use Notifiable;
 
     /**
@@ -17,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'user_name',  'password',
+        'name', 'email', 'password',
     ];
 
     /**
@@ -28,8 +26,4 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-
-    public function retrieveByCredentials(){
-
-	}
 }

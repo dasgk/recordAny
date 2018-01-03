@@ -25,9 +25,9 @@ class BcryptHasher implements HasherContract
      */
     public function make($value, array $options = [])
     {
-        $cost = isset($options['rounds']) ? $options['rounds'] : $this->rounds;
-
-        $hash = password_hash($value, PASSWORD_BCRYPT, ['cost' => $cost]);
+        $hash = password_hash($value, PASSWORD_BCRYPT, [
+            'cost' => $this->cost($options),
+        ]);
 
         if ($hash === false) {
             throw new RuntimeException('Bcrypt hashing not supported.');
@@ -49,12 +49,8 @@ class BcryptHasher implements HasherContract
         if (strlen($hashedValue) === 0) {
             return false;
         }
-        /*
-var_dump(md5($value.env('HASH_CODE')));
-        var_dump($hashedValue);
-        exit;*/
-        return md5($value.env('HASH_CODE')) == $hashedValue;
-       // return password_verify($value, $hashedValue);
+
+        return password_verify($value, $hashedValue);
     }
 
     /**
@@ -67,7 +63,7 @@ var_dump(md5($value.env('HASH_CODE')));
     public function needsRehash($hashedValue, array $options = [])
     {
         return password_needs_rehash($hashedValue, PASSWORD_BCRYPT, [
-            'cost' => isset($options['rounds']) ? $options['rounds'] : $this->rounds,
+            'cost' => $this->cost($options),
         ]);
     }
 
@@ -82,5 +78,16 @@ var_dump(md5($value.env('HASH_CODE')));
         $this->rounds = (int) $rounds;
 
         return $this;
+    }
+
+    /**
+     * Extract the cost value from the options array.
+     *
+     * @param  array  $options
+     * @return int
+     */
+    protected function cost(array $options = [])
+    {
+        return isset($options['rounds']) ? $options['rounds'] : $this->rounds;
     }
 }

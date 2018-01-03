@@ -38,13 +38,23 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'musers',
         ],
+
+		'admin' => [
+			'driver' => 'session',
+			'provider' => 'adminuser',
+		],
 
         'api' => [
             'driver' => 'token',
-            'provider' => 'users',
+            'provider' => 'musers',
         ],
+
+		'adminapi' => [
+			'driver' => 'token',
+			'provider' => 'adminuser',
+		]
     ],
 
     /*
@@ -70,6 +80,16 @@ return [
             'model' => App\User::class,
         ],
 
+		// 自定义用户验证及模型 lxp 20170105
+		'musers' => [
+			'driver' => 'meloquent',
+			'model' => App\Models\Users::class,
+		],
+		'adminuser' => [
+			'driver' => 'admineloquent',
+			'model' => App\Models\AdminUsers::class,
+		],
+
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
@@ -93,7 +113,7 @@ return [
 
     'passwords' => [
         'users' => [
-            'provider' => 'users',
+            'provider' => 'musers',
             'table' => 'password_resets',
             'expire' => 60,
         ],
