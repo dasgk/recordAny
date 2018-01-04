@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{{url('css/persion_space_A.css')}}">
     <link rel="stylesheet" href="{{url('css/common_person.css')}}">
     <link rel="stylesheet" href="{{url('plugins/editor.md-master/css/editormd.css')}}"/>
-    S
+
     <link href="{{url('css/magnific-popup.min.css')}}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{url('css/screen.css')}}"/>
     <script type="text/javascript" src="{{url('js/ghost-url.min.js')}}"></script>
@@ -62,7 +62,7 @@
 </nav>
 
 
-<div id="test-editormd"></div>
+<div id="test-editormd" style="width:68%"></div>
 
 
 <footer class="main-footer">
@@ -128,7 +128,7 @@
         $.get('test.md',
             function (md) {
                 testEditor = editormd("test-editormd", {
-                    width: "90%",
+                    width: "68%",
                     height: 740,
                     path: '../plugins/editor.md-master/lib/',
                     theme: "white",
