@@ -5,4 +5,7 @@ Route::group([
     'namespace' => 'User',
 ], function () {
     Route::get('profile', 'ProfileController@index');
+    Route::post('modify_comments', 'ProfileController@modify_comments');
+    Route::post('modify_nick_name', 'ProfileController@modify_nick_name');
+
 });

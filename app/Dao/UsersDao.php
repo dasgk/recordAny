@@ -33,4 +33,5 @@ class UsersDao extends Users
 		}
 		return $nickname;
 	}
+
 }
