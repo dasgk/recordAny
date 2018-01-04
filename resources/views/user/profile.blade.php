@@ -112,7 +112,7 @@
             <aside class="col-md-4 sidebar">
                 <div class="widget">
                     <div style="margin:0 30%">
-                        <button class="btn btn-default">发表新文章</button>
+                        <a class="btn btn-default" href="{{url('article/new_article')}}">发表新文章</a>
                     </div>
                 </div>
                 <div class="widget">
@@ -283,7 +283,6 @@
         $(var_id).show();
         $(var_id).html(str);
     }
-
     function change_type(type) {
         var tabs = $(".my_tab_li");
         for (var i = 0; i < tabs.length; i++) {
@@ -293,7 +292,6 @@
         select_type = type;
         send_ajax("{{url('user/get_info_list')}}", {'type': type}, 'get', fill_table);
     }
-
     $(function () {
         $(".person-nick-name").click(function () {
             var clickObj = $(this);

@@ -51,7 +51,10 @@ class ProfileController extends Controller
         $user->save();
     }
 
-
+    /**
+     * 获得博客列表，评论列表，互动好友列表
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function get_info_list()
     {
         $user = Auth::user();

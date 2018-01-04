@@ -3,18 +3,20 @@
 namespace App\Dao;
 
 use App\Models\AppUsers;
-use Illuminate\Database\Eloquent\Model;
 use App\Models\Article;
-use App\Dao\ArticleCommentDao;
 
 class AppUsersDao extends AppUsers
 {
+    /**
+     * 获得用户信息
+     * @param $id
+     * @return array|mixed
+     */
     public static function get_info_for_profile($id){
         $uids = $id;
         if(!is_array($id)){
             $uids = array($id);
         }
-
         $users = self::whereIn('uid',$uids)->get();
         $res = array();
         foreach($users as $user){

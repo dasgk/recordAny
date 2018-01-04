@@ -12,6 +12,7 @@ Route::group([
 	'middleware' => 'auth'
 ], function () {
     include_once 'web_user.php';
+    include_once 'web_article.php';
 });
 
 // 后台登录路由
