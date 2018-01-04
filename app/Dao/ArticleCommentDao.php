@@ -26,4 +26,11 @@ class ArticleCommentDao extends ArticleComment
         }
         return $relative_uids;
     }
+
+    public static function get_comments_by_uid($uid){
+        $list = self::where('uid', $uid)->select('title','article_id')->get();
+        $res = array('header'=>array('编号','内容','来源'),
+            'data'=>array(array('1','这是我的评论','文章1')));
+        return $res;
+    }
 }

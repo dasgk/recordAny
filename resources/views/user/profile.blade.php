@@ -94,30 +94,25 @@
                     <div>
                         <ul class="my_tab_ul">
                             @foreach($types as $key=>$v)
-                                @if($key == 1)
-                                    <li data-modal="{{$key}}" class="my_tab_li current_detail">{{$v}}</li>
+                                @if($key == 'blogs')
+                                    <li id="{{$key}}" data-modal="{{$key}}" class="my_tab_li current_detail">{{$v}}</li>
                                 @else
-                                    <li data-modal="{{$key}}" class="my_tab_li">{{$v}}</li>
+                                    <li id="{{$key}}" data-modal="{{$key}}" class="my_tab_li">{{$v}}</li>
                                 @endif
                             @endforeach
                         </ul>
                     </div>
-                    <div id="my_blogs"></div>
-                    <div id="my_comments"></div>
-                    <div id="my_friends"></div>
+                    <div id="my_blogs" style="background-color:white">
+                    </div>
+                    <div id="my_comments" style="background-color:white"></div>
+                    <div id="my_friends" style="background-color:white"></div>
+                    <div id="my_collects" style="background-color:white"></div>
                 </div>
             </main>
             <aside class="col-md-4 sidebar">
                 <div class="widget">
-                    <h4 class="title">社区</h4>
-                    <div class="content community">
-                        <p>QQ群：277327792</p>
-                        <p><a href="http://wenda.ghostchina.com/" title="Ghost中文网问答社区" target="_blank"
-                              onclick="_hmt.push(['_trackEvent', 'big-button', 'click', '问答社区'])"><i
-                                        class="fa fa-comments"></i> 问答社区</a></p>
-                        <p><a href="http://weibo.com/ghostchinacom" title="Ghost中文网官方微博" target="_blank"
-                              onclick="_hmt.push(['_trackEvent', 'big-button', 'click', '官方微博'])"><i
-                                        class="fa fa-weibo"></i> 官方微博</a></p>
+                    <div style="margin:0 30%">
+                        <button class="btn btn-default">发表新文章</button>
                     </div>
                 </div>
                 <div class="widget">
@@ -187,6 +182,10 @@
 <script src="{{url('js/main.js')}}"></script>
 <script src="{{url('js/ajax.js')}}"></script>
 <script>
+    types = [];
+    @foreach($types as $key=>$type)
+        types.push("{{$key}}")
+    @endforeach
     function changeToEditforComments(node) {
         node.html("");
         var inputObj = $("<textarea /> </textarea>");
@@ -199,13 +198,13 @@
         }).keyup(function (event) {
             var keyvalue = event.which;
             if (keyvalue == 13) {
-                node.html(node.children("input").val());
+                node.html(node.children("textarea").val());
             }
             if (keyvalue == 27) {
                 node.html(content);
             }
         }).blur(function () {
-            if (node.children("input").val() != content) {
+            if (node.children("textarea").val() != content) {
                 if (confirm("是否保存修改的内容？", "Yes", "No")) {
                     send_ajax("{{url('user/modify_comments')}}", {
                         'comments': node.children("textarea").val(),
@@ -253,6 +252,48 @@
     }
     function success() {
     }
+    function clear_table() {
+        for (type in types) {
+            var_id = "#my_" + types[type];
+            $(var_id).hide();
+            $(var_id).html('');
+        }
+    }
+    var select_type = '';
+    function fill_table(data) {
+        clear_table();
+        var_id = "#my_" + select_type;
+        content_list = data.data.data;
+        header = data.data.header;
+        //填充头部
+        str = "<table class='table'> <thead><tr>";
+        for (item in header) {
+            str += "<td>" + header[item] + "</td>"
+        }
+        str += "</tr></thead><tbody>";
+        //填充内容
+        for (item in content_list) {
+            str += "<tr>";
+            for (mm in content_list[item]) {
+                str += "<td>" + content_list[item][mm] + "</td>";
+            }
+            str += "</tr>";
+        }
+        str += "</tbody></table>";
+        $(var_id).show();
+        $(var_id).html(str);
+    }
+
+    function change_type(type) {
+        var tabs = $(".my_tab_li");
+        for (var i = 0; i < tabs.length; i++) {
+            $(tabs[i]).attr('class', 'my_tab_li');
+        }
+        $("#" + type).attr('class', 'my_tab_li current_detail');
+        select_type = type;
+        send_ajax("{{url('user/get_info_list')}}", {'type': type}, 'get', fill_table);
+    }
+
     $(function () {
         $(".person-nick-name").click(function () {
             var clickObj = $(this);
@@ -266,6 +307,12 @@
             content = content.replace(/\s/g, '')
             changeToEditforComments(clickObj);
         })
+        //页面加载时得到最新的信息列表
+        $(".my_tab_li").click(function () {
+            type = $(this).attr('data-modal');
+            change_type(type);
+        })
+        change_type('blogs');
     });
 </script>
 </body>
