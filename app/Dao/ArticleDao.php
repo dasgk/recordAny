@@ -16,11 +16,14 @@ class ArticleDao extends Article
     {
         $article_list = self::where('uid', $uid)->orderBy('article_id', 'desc')->take(15)->skip(($page - 1) * 15)->select('article_id', 'title',
             'look_num', 'comment_num', 'updated_at')->get();
-        return array('header'=>array('编号','标题','浏览量' ,'评论量','编辑时间'),'data' => array(array('article_id' => 1,
-            'title' => '测试标题',
-            'look_num' => 30,
-            'comment_num' => 25,
-            'updated_at' => '2017-12-31 09:08:00')));
-        return $article_list;
+        $header = array('编号','标题','浏览量' ,'评论量','编辑时间');
+        $data = array();
+
+        foreach($article_list as $article){
+
+            $data[] = array('article_id'=>$article->article_id,'title'=>$article->title,'look_num'=>$article->look_num,'comment_num'=>$article->comment_num,
+                'updated_at'=>$article->updated_at->format('Y-m-d - H:i:s'));
+        }
+        return array('header'=>$header,'data' =>$data);
     }
 }

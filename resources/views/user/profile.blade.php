@@ -118,7 +118,9 @@
                 <div class="widget">
                     <h4 class="title">标签云</h4>
                     <div class="content tag-cloud">
-                        <a href="/tag/ke-hu-duan/">客户端</a>
+                        @foreach($labels as $label)
+                            <a href="/tag/ke-hu-duan/">{{$label}}</a>
+                        @endforeach
                         <a href="/tag-cloud/">...</a>
                     </div>
                 </div>

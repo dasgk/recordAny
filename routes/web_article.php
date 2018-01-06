@@ -5,4 +5,5 @@ Route::group([
     'namespace' => 'Article',
 ], function () {
     Route::get('new_article', 'ArticleController@new_article');
+    Route::post('save_article', 'ArticleController@save_article');
 });

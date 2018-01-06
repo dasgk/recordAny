@@ -7,6 +7,7 @@ use App\Dao\ArticleCommentDao;
 use App\Dao\ArticleDao;
 use App\Dao\UsersDao;
 use App\Http\Controllers\Controller;
+use App\Models\Label;
 use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
@@ -24,6 +25,13 @@ class ProfileController extends Controller
         }
         $types = config('tab_type');
         $res['types'] = $types;
+        $res['labels'] = array();
+        $labels = Label::where('uid', $user->uid)->get();
+        $label_str = array();
+        foreach($labels as $label){
+            $label_str[]=$label->title;
+        }
+        $res['labels'] = $label_str;
         return view('user.profile', $res);
     }
 
