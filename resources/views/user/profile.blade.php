@@ -102,7 +102,7 @@
                             @endforeach
                         </ul>
                     </div>
-                    <div id="my_blogs" style="background-color:white">
+                    <div id="my_articles" style="background-color:white">
                     </div>
                     <div id="my_comments" style="background-color:white"></div>
                     <div id="my_friends" style="background-color:white"></div>
@@ -112,16 +112,15 @@
             <aside class="col-md-4 sidebar">
                 <div class="widget">
                     <div style="margin:0 30%">
-                        <a class="btn btn-default" href="{{url('article/new_article')}}">发表新文章</a>
+                        <a class="btn btn-default" href="{{url('articles/')}}">发表新文章</a>
                     </div>
                 </div>
                 <div class="widget">
                     <h4 class="title">标签云</h4>
                     <div class="content tag-cloud">
                         @foreach($labels as $label)
-                            <a href="/tag/ke-hu-duan/">{{$label}}</a>
+                            <a href="/tag/{{$label}}/">{{$label}}</a>
                         @endforeach
-                        <a href="/tag-cloud/">...</a>
                     </div>
                 </div>
             </aside>
@@ -183,77 +182,12 @@
 <script src="{{url('js/jquery.magnific-popup.min.js')}}"></script>
 <script src="{{url('js/main.js')}}"></script>
 <script src="{{url('js/ajax.js')}}"></script>
+<script src="{{url('js/write_profile.js')}}"></script>
 <script>
     types = [];
     @foreach($types as $key=>$type)
         types.push("{{$key}}")
     @endforeach
-    function changeToEditforComments(node) {
-        node.html("");
-        var inputObj = $("<textarea /> </textarea>");
-        inputObj.css("border", "1").css("background-color", node.css("background-blue"))
-            .css("font-size", "24px").css("height", "90px")
-            .css("width", "490px").val(content).appendTo(node)
-            .get(0).select();
-        inputObj.click(function () {
-            return false;
-        }).keyup(function (event) {
-            var keyvalue = event.which;
-            if (keyvalue == 13) {
-                node.html(node.children("textarea").val());
-            }
-            if (keyvalue == 27) {
-                node.html(content);
-            }
-        }).blur(function () {
-            if (node.children("textarea").val() != content) {
-                if (confirm("是否保存修改的内容？", "Yes", "No")) {
-                    send_ajax("{{url('user/modify_comments')}}", {
-                        'comments': node.children("textarea").val(),
-                        "_token": "{{csrf_token()}}"
-                    }, 'POST', success);
-                } else {
-                    node.html(content);
-                }
-            } else {
-                node.html(content);
-            }
-        });
-    }
-    function changeToEditforNickName(node) {
-        node.html("");
-        var inputObj = $("<input type='text'/>");
-        inputObj.css("border", "1").css("background-color", node.css("background-blue"))
-            .css("font-size", node.css("font-size")).css("height", "50px")
-            .css("width", node.css("width")).val(content).appendTo(node)
-            .get(0).select();
-        inputObj.click(function () {
-            return false;
-        }).keyup(function (event) {
-            var keyvalue = event.which;
-            if (keyvalue == 13) {
-                node.html(node.children("input").val());
-            }
-            if (keyvalue == 27) {
-                node.html(content);
-            }
-        }).blur(function () {
-            if (node.children("input").val() != content) {
-                if (confirm("是否保存修改的内容？", "Yes", "No")) {
-                    send_ajax("{{url('user/modify_nick_name')}}", {
-                        'nick_name': node.children("input").val(),
-                        "_token": "{{csrf_token()}}"
-                    }, 'POST', success);
-                } else {
-                    node.html(content);
-                }
-            } else {
-                node.html(content);
-            }
-        });
-    }
-    function success() {
-    }
     function clear_table() {
         for (type in types) {
             var_id = "#my_" + types[type];
@@ -262,8 +196,10 @@
         }
     }
     var select_type = '';
-    function fill_table(data) {
+    function fill_table(raw_data) {
         clear_table();
+        data = raw_data.data;
+        type = raw_data.type;
         var_id = "#my_" + select_type;
         content_list = data.data.data;
         header = data.data.header;
@@ -276,8 +212,14 @@
         //填充内容
         for (item in content_list) {
             str += "<tr>";
+            //每行加一个超链接
             for (mm in content_list[item]) {
-                str += "<td>" + content_list[item][mm] + "</td>";
+                if(mm =='title'){
+                    str += "<td><a href='../"+select_type+"?id=" +content_list[item]['id']+"'>"+ content_list[item][mm] + "</a></td>";
+                }else{
+                    str += "<td>" + content_list[item][mm] + "</td>";
+                }
+
             }
             str += "</tr>";
         }
@@ -312,7 +254,7 @@
             type = $(this).attr('data-modal');
             change_type(type);
         })
-        change_type('blogs');
+        change_type('articles');
     });
 </script>
 </body>

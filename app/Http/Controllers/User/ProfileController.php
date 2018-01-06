@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Dao\AppUsersDao;
 use App\Dao\ArticleCommentDao;
 use App\Dao\ArticleDao;
+use App\Dao\LabelDao;
 use App\Dao\UsersDao;
 use App\Http\Controllers\Controller;
 use App\Models\Label;
@@ -25,13 +26,7 @@ class ProfileController extends Controller
         }
         $types = config('tab_type');
         $res['types'] = $types;
-        $res['labels'] = array();
-        $labels = Label::where('uid', $user->uid)->get();
-        $label_str = array();
-        foreach($labels as $label){
-            $label_str[]=$label->title;
-        }
-        $res['labels'] = $label_str;
+        $res['labels'] = LabelDao::get_label_str_list_by_uid($user->uid);
         return view('user.profile', $res);
     }
 
@@ -68,10 +63,12 @@ class ProfileController extends Controller
         $user = Auth::user();
         $uid = $user->uid;
         $type = request('type');
-        if ($type == 'blogs') {
-            $res = ArticleDao::get_article_list_by_uid($uid);
+        if ($type == 'articles') {
+            $res['data'] = ArticleDao::get_article_list_by_uid($uid);
+            $res['type'] = 'article';
         } elseif ($type == 'comments') {
-            $res = ArticleCommentDao::get_comments_by_uid($uid);
+            $res['data'] = ArticleCommentDao::get_comments_by_uid($uid);
+            $res['type'] = 'comment';
         } else {
             //互动好友
             $res = ArticleDao::get_article_list_by_uid($uid);

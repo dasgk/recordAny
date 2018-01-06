@@ -18,10 +18,8 @@ class ArticleDao extends Article
             'look_num', 'comment_num', 'updated_at')->get();
         $header = array('编号','标题','浏览量' ,'评论量','编辑时间');
         $data = array();
-
         foreach($article_list as $article){
-
-            $data[] = array('article_id'=>$article->article_id,'title'=>$article->title,'look_num'=>$article->look_num,'comment_num'=>$article->comment_num,
+            $data[] = array('id'=>$article->article_id,'title'=>$article->title,'look_num'=>$article->look_num,'comment_num'=>$article->comment_num,
                 'updated_at'=>$article->updated_at->format('Y-m-d - H:i:s'));
         }
         return array('header'=>$header,'data' =>$data);
