@@ -5,15 +5,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <title>Ghost 开源博客平台 | Ghost中文网</title>
     <link rel="stylesheet" href="{{url('css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href=" {{url('css/font-awesome.min.css')}}">
-    <link rel="stylesheet" href="{{url('css/monokai_sublime.min.css')}}">
-    <link rel="stylesheet" href="{{url('css/persion_space_A.css')}}">
-    <link rel="stylesheet" href="{{url('css/common_person.css')}}">
-    <link rel="stylesheet" href="{{url('plugins/editor.md-master/css/editormd.css')}}"/>
+    <link rel="stylesheet" href="{{url('css/bootstrap-tags.css')}}">
 
-    <link href="{{url('css/magnific-popup.min.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href=" {{url('css/font-awesome.min.css')}}">
+
+    <link rel="stylesheet" href="{{url('css/write.css')}}">
+    <link rel="stylesheet" href="{{url('css/blogmoveform.css')}}">
+    <link rel="stylesheet" href="{{url('css/bootstrap-tagsinput.css')}}">
+
+    <link rel="stylesheet" href="{{url('plugins/editor.md-master/css/editormd.css')}}"/>
     <link rel="stylesheet" type="text/css" href="{{url('css/screen.css')}}"/>
     <script type="text/javascript" src="{{url('js/ghost-url.min.js')}}"></script>
+
 </head>
 <body class="home-template">
 
@@ -60,11 +63,21 @@
         </div>
     </div>
 </nav>
-
-
-<div id="test-editormd" style="width:68%"></div>
-
-
+<div class="editormd editormd-vertical editormd-theme-white" style="height:50px;width:68%;border:0px solid #ddd;">
+    <label style="font-size:20px">标题</label>
+    <input type="text" style="width:92%;margin-left:4%;" name="title" required/>
+</div>
+<div id="test-editormd"></div>
+<div class="editormd editormd-vertical editormd-theme-white" style="height:0%;border:0px solid #ddd;margin-left:16%">
+    <label style="font-size:20px">标签</label>
+    <div class="bs-example">
+        <input type="text" value="
+        @foreach($tags as $tag)
+                {{$tag}},
+         @endforeach
+        " data-role="tagsinput" style="display: none;">
+    </div>
+</div>
 <footer class="main-footer">
     <div class="container">
         <div class="row">
@@ -115,16 +128,21 @@
 <script src="{{url('js/jquery.min.js')}}"></script>
 <script src="{{url('js/bootstrap.min.js')}}"></script>
 <script src="{{url('js/jquery.fitvids.min.js')}}"></script>
-<script src="{{url('js/highlight.min.js')}}"></script>
-<script src="{{url('js/jquery.magnific-popup.min.js')}}"></script>
-<script src="{{url('js/main.js')}}"></script>
+
 <script src="{{url('js/ajax.js')}}"></script>
+<script src="{{url('js/bootstrap-tags.js')}}"></script>
 <script src="{{url('plugins/editor.md-master/editormd.min.js')}}"></script>
+<script src="{{url('js/bootstrap-tagsinput-angular.js')}}"></script>
+<script src="{{url('js/bootstrap-tagsinput.js')}}"></script>
+
 <script>
-
     var testEditor;
-
+    function add_tag() {
+    }
     $(function () {
+        $("#addTag").click(function () {
+            add_tag();
+        })
         $.get('test.md',
             function (md) {
                 testEditor = editormd("test-editormd", {
@@ -133,7 +151,7 @@
                     path: '../plugins/editor.md-master/lib/',
                     theme: "white",
                     previewTheme: "white",
-                    editorTheme: "pastel-on-white",
+                    editorTheme: "neo",
                     markdown: md,
                     codeFold: true,
                     //syncScrolling : false,
@@ -158,7 +176,7 @@
                     imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
                     imageUploadURL: "./php/upload.php",
                     onload: function () {
-                        console.log('onload', this);
+                        // console.log('onload', this);
                         //this.fullscreen();
                         //this.unwatch();
                         //this.watch().fullscreen();
@@ -170,7 +188,7 @@
                     }
                 });
             });
-        testEditor.show();
+
     });
 
 </script>

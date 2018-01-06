@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 class ArticleController extends Controller
 {
    public function new_article(){
-        return view('article.article');
+       $res['tags'] = array('xvj');
+        return view('article.article', $res);
    }
 }
