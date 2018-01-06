@@ -52,6 +52,9 @@
                                         "<input type=\"text\" data-url />" + (function(){
                                             return (settings.imageUpload) ? "<div class=\"" + classPrefix + "file-input\">" +
                                                                                 "<input type=\"file\" name=\"" + classPrefix + "image-file\" accept=\"image/*\" />" +
+                                                "<input type=\"hidden\" name=\"_token\" value=\""+settings._token+"\" />" +
+                                                "<input type=\"hidden\" name=\"filetype\" value=\""+settings.type_key+"\" />" +
+
                                                                                 "<input type=\"submit\" value=\"" + imageLang.uploadButton + "\" />" +
                                                                             "</div>" : "";
                                         })() +
@@ -162,7 +165,7 @@
 
                             if(!settings.crossDomainUpload)
                             {
-                              if (json.success === 1)
+                              if (json.state === 'SUCCESS')
                               {
                                   dialog.find("[data-url]").val(json.url);
                               }

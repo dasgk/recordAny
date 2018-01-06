@@ -66,21 +66,26 @@
 </nav>
 <div class="editormd editormd-vertical editormd-theme-white" style="height:50px;width:68%;border:0px solid #ddd;">
     <label style="font-size:20px">标题</label>
-    <input type="text" style="width:92%;margin-left:4%;" name="title" id="title"  value="{{$article->title or ''}}" required/>
+    <input type="text" style="width:92%;margin-left:4%;" name="title" id="title" value="{{$article->title or ''}}"
+           required/>
+    <input type="hidden" style="width:92%;margin-left:4%;" name="id" id="id" value="{{$article->article_id or ''}}"
+           required/>
 </div>
-<div id="test-editormd"></div>
+<div id="test-editormd" class="form-control">
+    <textarea style="display:none;"> {!! $article->content !!}    </textarea>
+</div>
 <div class="editormd editormd-vertical editormd-theme-white" style="height:0%;border:0px solid #ddd;margin-left:16%">
     <label style="font-size:20px">标签</label>
     <div class="bs-example">
         <input type="text" id="labels" value="
         @foreach($tags as $tag)
-                {{$tag}},
+        {{$tag}},
          @endforeach
-        " data-role="tagsinput" style="display: none;">
+                " data-role="tagsinput" style="display: none;">
     </div>
 </div>
 <div class="editormd editormd-vertical editormd-theme-white" style="height:0%;border:0px solid #ddd;text-align:center">
-<a href="javascript:void(0)" onclick="publish()" class="button button-action button-pill" >发布</a>
+    <a href="javascript:void(0)" onclick="publish()" class="button button-action button-pill">发布</a>
 </div>
 <footer class="main-footer">
     <div class="container">
@@ -141,15 +146,15 @@
 
 <script>
     var testEditor;
-    function callback_after_save(data){
-        if(data.status){
+    function callback_after_save(data) {
+        if (data.status) {
             layer.msg('恭喜发布成功！', {
                 offset: 't',
                 anim: 6
-            },function(){
-                location.href="{{url('user/profile')}}"
+            }, function () {
+                location.href = "{{url('user/profile')}}"
             });
-        }else{
+        } else {
             layer.msg('抱歉保存失败，请重试', {
                 offset: 't',
                 anim: 6
@@ -159,52 +164,52 @@
     function publish() {
         //检测标题
         title = $("#title").val();
-        if(title.length==0){
-            layer.msg('标题不能为空', function(){
+        if (title.length == 0) {
+            layer.msg('标题不能为空', function () {
             });
             return;
         }
         //检测内容
         content = testEditor.getHTML();
-        if(content.length==0){
-            layer.msg('内容不能为空', function(){
+        if (content.length == 0) {
+            layer.msg('内容不能为空', function () {
             });
             return;
         }
-        labels =$("#labels").val()
-        send_ajax("{{url('article/save_article')}}",{"title":title,'content':content,'labels':labels,'_token':"{{csrf_token()}}"},'post',callback_after_save);
+        labels = $("#labels").val()
+        send_ajax("{{url('articles/save_article')}}", {
+            "id": $("#id").val(),
+            "title": title,
+            'content': content,
+            'labels': labels,
+            '_token': "{{csrf_token()}}"
+        }, 'post', callback_after_save);
     }
     $(function () {
+
         $.get('test.md',
             function (md) {
                 testEditor = editormd("test-editormd", {
                     width: "68%",
                     height: 740,
+                    syncScrolling : "single",
                     path: '../plugins/editor.md-master/lib/',
-                    theme: "white",
-                    previewTheme: "white",
-                    editorTheme: "neo",
-                    markdown: md,
-                    codeFold: true,
-                    //syncScrolling : false,
-                    saveHTMLToTextarea: true,    // 保存 HTML 到 Textarea
-                    searchReplace: true,
-                    //watch : false,                // 关闭实时预览
-                    htmlDecode: "style,script,iframe|on*",            // 开启 HTML 标签解析，为了安全性，默认不开启
-                    emoji: true,
-                    taskList: true,
-                    tocm: true,         // Using [TOCM]
-                    tex: true,                   // 开启科学公式TeX语言支持，默认关闭
-                    flowChart: true,             // 开启流程图支持，默认关闭
                     sequenceDiagram: true,       // 开启时序/序列图支持，默认关闭,
                     imageUpload: true,
+                    htmlDecode:true,
+                    _token: "{{csrf_token()}}",
+                    saveHTMLToTextarea:true,
+                    type_key: 'FT_COMMON',
                     imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
-                    imageUploadURL: "./php/upload.php",
+                    imageUploadURL: "{{url('/ueditor/uploadimage?_token='.csrf_token())}}",
                     onload: function () {
-                        this.setValue("{!! $article->content !!}")
+                        //    this.setValue("{{$article->content}}")
+
                     }
                 });
+
             });
+
     });
 </script>
 </body>

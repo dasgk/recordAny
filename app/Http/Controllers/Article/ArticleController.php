@@ -16,6 +16,10 @@ use Illuminate\Support\Facades\Auth;
 
 class ArticleController extends Controller
 {
+    /**
+     * 展示文章编辑页面
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function new_article()
     {
         $article_id = request('id', 0);
@@ -29,6 +33,10 @@ class ArticleController extends Controller
         return view('article.article', $res);
     }
 
+    /**
+     * 保存文章信息接口
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\JsonResponse|\Illuminate\View\View
+     */
     public function save_article()
     {
         $uid = Auth::user()->uid;
@@ -42,7 +50,7 @@ class ArticleController extends Controller
             $article = new Article();
         }
         $article->title = $title;
-        $article->content = $content;
+        $article->content = htmlspecialchars($content);
         $article->uid = $uid;
         $article->save();
         //处理标签

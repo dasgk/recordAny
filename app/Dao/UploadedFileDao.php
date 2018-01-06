@@ -61,6 +61,8 @@ class UploadedFileDao extends UploadedFile
 			$fileMd5 = md5_file($filePathName);
 
 			// 取得上传类型相关信息
+
+
 			$uType = UploadedTypeDao::getFileType($typeKey);
 			if (!$uType) {
 				return self::returnData('utype is not exists');

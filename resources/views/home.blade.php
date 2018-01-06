@@ -64,14 +64,15 @@
     <div class="container">
         <div class="row">
             <main class="col-md-8 main-content">
+                @foreach($article_list as $article)
                 <article id=109 class="post tag-android tag-ke-hu-duan">
 
                     <div class="post-head">
-                        <h1 class="post-title"><a href="/android-app-for-ghost/">Android 版 Ghost 客户端来了！</a></h1>
+                        <h1 class="post-title"><a href="/android-app-for-ghost/">{{$article['title']}}</a></h1>
                         <div class="post-meta">
-                            <span class="author">作者：<a href="/author/wangsai/">王赛</a></span> &bull;
+                            <span class="author">作者：<a href="/user/info/{{$article['uid']}}/">{{$article['author']}}</a></span> &bull;
                             <time class="post-date" datetime="2017年11月8日星期三下午4点44分" title="2017年11月8日星期三下午4点44分">
-                                2017年11月8日
+                                {{$article['time']}}
                             </time>
                         </div>
                     </div>
@@ -97,6 +98,7 @@
                         </div>
                     </footer>
                 </article>
+                @endforeach
                 <article id=100 class="post">
 
                     <div class="post-head">

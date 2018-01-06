@@ -5,6 +5,7 @@ namespace App\Dao;
 use App\Models\ArticleComment;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Article;
+use App\User;
 
 class ArticleDao extends Article
 {
@@ -23,5 +24,20 @@ class ArticleDao extends Article
                 'updated_at'=>$article->updated_at->format('Y-m-d - H:i:s'));
         }
         return array('header'=>$header,'data' =>$data);
+    }
+
+    public static function get_article_list_for_index($page = 1){
+        $article_raw_list = Article::orderBy('look_num','desc')->orderBy('article_id','desc')->skip(($page-1)*10)->take(10)->get();
+        $article_list = array();
+        foreach ($article_raw_list as $item) {
+            $mm_item['title'] = $item->title;
+            $uid = $item->uid;
+            $user = User::where('uid', $uid)->first();
+            $mm_item['author'] = $user->nick_name;
+            $mm_item['uid'] = $user->uid;
+            $mm_item['time'] = $item->updated_at->format("Y年m月d日");
+            $article_list[] = $mm_item;
+        }
+        return $article_list;
     }
 }

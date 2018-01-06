@@ -424,7 +424,7 @@
             {
                 markdownTextarea.val(settings.markdown);
             }
-            
+            debugger
             if (settings.appendMarkdown !== "")
             {
                 markdownTextarea.val(markdownTextarea.val() + settings.appendMarkdown);

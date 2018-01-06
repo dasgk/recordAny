@@ -24,3 +24,5 @@ Route::group([
 	Route::post('login', 'LoginController@login');
 	Route::post('logout', 'LoginController@logout');
 });
+Route::post('/ueditor/uploadfile', 'UeditorController@uploadfile');
+Route::post('/ueditor/uploadimage', 'UeditorController@uploadimage');

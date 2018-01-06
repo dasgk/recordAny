@@ -6,7 +6,7 @@
 return [
 	"imageActionName" => "uploadimage",
 	/* 执行上传图片的action名称 */
-	"imageFieldName" => "upfile",
+	"imageFieldName" => "editormd-image-file",
 	/* 提交的图片表单名称 */
 	"imageMaxSize" => 2048000,
 	/* 上传大小限制，单位B */
