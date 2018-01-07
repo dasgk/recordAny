@@ -4,6 +4,16 @@ use Illuminate\Support\Facades\Route;
 /**
  * 和业务相关的辅助方法
  */
+if(!function_exists('get_img')){
+    function get_img($str){
+        $str = htmlspecialchars_decode($str);
+        preg_match('/<\s*img\s+[^>]*?src\s*=\s*(\'|\")(.*?)\\1[^>]*?\/?\s*>/i',$str,$match);
+        if(count($match)>0){
+            return $match[0];
+        }
+        return '';
+    }
+}
 
 if (!function_exists('cdn')) {
 

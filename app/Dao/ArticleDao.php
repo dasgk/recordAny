@@ -26,6 +26,20 @@ class ArticleDao extends Article
         return array('header'=>$header,'data' =>$data);
     }
 
+    /**
+     * 内容去掉图片
+     * @param $content
+     */
+    private static function get_abstract($content){
+        $content = htmlspecialchars_decode($content);
+        $img_str = get_img($content);
+        while(!empty($img_str)){
+           $content= str_replace($img_str,'',$content);
+            $img_str = get_img($content);
+        }
+        return substr($content,0,50);
+    }
+
     public static function get_article_list_for_index($page = 1){
         $article_raw_list = Article::orderBy('look_num','desc')->orderBy('article_id','desc')->skip(($page-1)*10)->take(10)->get();
         $article_list = array();
@@ -35,6 +49,9 @@ class ArticleDao extends Article
             $user = User::where('uid', $uid)->first();
             $mm_item['author'] = $user->nick_name;
             $mm_item['uid'] = $user->uid;
+            $mm_item['list_img'] = get_img($item->content);
+            $mm_item['abstract'] = self::get_abstract($item->content);
+            $mm_item['tags'] = LabelDao::get_label_str_list_by_article_id($item->article_id);
             $mm_item['time'] = $item->updated_at->format("Y年m月d日");
             $article_list[] = $mm_item;
         }

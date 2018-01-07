@@ -76,14 +76,13 @@
                             </time>
                         </div>
                     </div>
-                    <div class="featured-media">
-                        <a href="/android-app-for-ghost/"><img
-                                    src="http://static.ghostchina.com/image/c/06/765c76cb1ca259dd8fe8002459bbc.jpg"
-                                    alt="Android 版 Ghost 客户端来了！"></a>
-                    </div>
+                    @if(!empty($article['list_img']))
+                        <div class="featured-media">
+                            {!! $article['list_img'] !!}
+                        </div>
+                    @endif
                     <div class="post-content">
-                        <p>Ghost 从一开始就支持响应式 Web 使用体验，但是我们今天仍然向前迈出了一大步 -- 推出 Android 平台原生 APP ！ 我们一直试图为 Ghost
-                            用户构建一个可靠的移动端 Web 体验，但不可避免地，它在它所能做的事情上仍然是相当受限的。即便是在 2017 年的</p>
+                        {!! $article['abstract'] !!}
                     </div>
                     <div class="post-permalink">
                         <a href="/android-app-for-ghost/" class="btn btn-default">阅读全文</a>
@@ -92,41 +91,15 @@
                     <footer class="post-footer clearfix">
                         <div class="pull-left tag-list">
                             <i class="fa fa-folder-open-o"></i>
-                            <a href="/tag/android/">Android</a>, <a href="/tag/ke-hu-duan/">客户端</a>
+                            @foreach($article['tags'] as $tag)
+                                <a href="/tag/android/">{{$tag}}</a>,
+                            @endforeach
                         </div>
                         <div class="pull-right share">
                         </div>
                     </footer>
                 </article>
                 @endforeach
-                <article id=100 class="post">
-
-                    <div class="post-head">
-                        <h1 class="post-title"><a href="/1-0-0-beta-is-out/">1.0.0 Beta 版本发布啦！！！</a></h1>
-                        <div class="post-meta">
-                            <span class="author">作者：<a href="/author/wangsai/">王赛</a></span> &bull;
-                            <time class="post-date" datetime="2017年6月9日星期五晚上9点49分" title="2017年6月9日星期五晚上9点49分">
-                                2017年6月9日
-                            </time>
-                        </div>
-                    </div>
-                    <div class="post-content">
-                        <p>经过 21 个 alpha 版本的迭代，我们终于迎来了第一个 1.0 beta 版本！ 请查看先前的博文以了解 1.0 和 LTS 版本之间的差异。 对于 LTS 版本的官方支持将于
-                            2017 年 8 月 31 号结束。 如何安装 beta 版本？ 官方推荐通过 Ghost-CL</p>
-                    </div>
-                    <div class="post-permalink">
-                        <a href="/1-0-0-beta-is-out/" class="btn btn-default">阅读全文</a>
-                    </div>
-
-                    <footer class="post-footer clearfix">
-                        <div class="pull-left tag-list">
-                            <i class="fa fa-folder-open-o"></i>
-
-                        </div>
-                        <div class="pull-right share">
-                        </div>
-                    </footer>
-                </article>
                 <nav class="pagination" role="navigation">
                     <span class="page-number">第 1 页 &frasl; 共 9 页</span>
                     <a class="older-posts" href="/page/2/"><i class="fa fa-angle-right"></i></a>

@@ -204,9 +204,9 @@
         content_list = data.data.data;
         header = data.data.header;
         //填充头部
-        str = "<table class='table'> <thead><tr>";
+        str = "<table class='table table-responsive'> <thead><tr>";
         for (item in header) {
-            str += "<td>" + header[item] + "</td>"
+            str += "<td style=\"line-height:3.428571\">" + header[item] + "</td>"
         }
         str += "</tr></thead><tbody>";
         //填充内容
@@ -215,9 +215,9 @@
             //每行加一个超链接
             for (mm in content_list[item]) {
                 if(mm =='title'){
-                    str += "<td><a href='../"+select_type+"?id=" +content_list[item]['id']+"'>"+ content_list[item][mm] + "</a></td>";
+                    str += "<td style=\"line-height:3.428571\"><a href='../"+select_type+"?id=" +content_list[item]['id']+"'>"+ content_list[item][mm] + "</a></td>";
                 }else{
-                    str += "<td>" + content_list[item][mm] + "</td>";
+                    str += "<td style=\"line-height:3.428571\">" + content_list[item][mm] + "</td>";
                 }
 
             }
