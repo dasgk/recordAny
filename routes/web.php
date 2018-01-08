@@ -7,6 +7,7 @@ Route::get('/home', 'HomeController@welcome');
 // 前台登录注册路由
 Auth::routes();
 
+
 // 前台需要登录验证的路由
 Route::group([
 	'middleware' => 'auth'
@@ -14,6 +15,15 @@ Route::group([
     include_once 'web_user.php';
     include_once 'web_article.php';
 });
+
+
+Route::group([
+    'prefix' => 'articles',
+    'namespace' => 'Article',
+], function () {
+
+});
+
 
 // 后台登录路由
 Route::group([

@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{{url('css/monokai_sublime.min.css')}}">
     <link href="{{url('css/magnific-popup.min.css')}}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{url('css/screen.css')}}"/>
+    <link rel="stylesheet" href=" {{url('css/buttons.css')}}">
     <script type="text/javascript" src="{{url('js/ghost-url.min.js')}}"></script>
 </head>
 <body class="home-template">
@@ -64,11 +65,11 @@
     <div class="container">
         <div class="row">
             <main class="col-md-8 main-content">
-                @foreach($article_list as $article)
+
                 <article id=109 class="post tag-android tag-ke-hu-duan">
 
                     <div class="post-head">
-                        <h1 class="post-title"><a href="{{url('articles/article_detail?id='.$article['article_id'])}}">{{$article['title']}}</a></h1>
+                        <h1 class="post-title"><a href="/android-app-for-ghost/">{{$article['title']}}</a></h1>
                         <div class="post-meta">
                             <span class="author">作者：<a href="/user/info/{{$article['uid']}}/">{{$article['author']}}</a></span> &bull;
                             <time class="post-date" datetime="2017年11月8日星期三下午4点44分" title="2017年11月8日星期三下午4点44分">
@@ -76,16 +77,8 @@
                             </time>
                         </div>
                     </div>
-                    @if(!empty($article['list_img']))
-                        <div class="featured-media">
-                            {!! $article['list_img'] !!}
-                        </div>
-                    @endif
                     <div class="post-content">
-                        {!! $article['abstract'] !!}
-                    </div>
-                    <div class="post-permalink">
-                        <a href="{{url('articles/article_detail?id='.$article['article_id'])}}" class="btn btn-default">阅读全文</a>
+                        {!! htmlspecialchars_decode($article['content']) !!}
                     </div>
 
                     <footer class="post-footer clearfix">
@@ -98,25 +91,18 @@
                         <div class="pull-right share">
                         </div>
                     </footer>
+                    <div class="editormd editormd-vertical editormd-theme-white" style="height:0%;border:0px solid #ddd;text-align:center">
+                        <a href="javascript:void(0)" onclick="publish()" class="button button-action button-pill">点赞</a>
+                    </div>
                 </article>
-                @endforeach
-                <nav class="pagination" role="navigation">
-                    <span class="page-number">第 1 页 &frasl; 共 9 页</span>
-                    <a class="older-posts" href="/page/2/"><i class="fa fa-angle-right"></i></a>
-                </nav>
             </main>
 
             <aside class="col-md-4 sidebar">
                 <div class="widget">
-                    <h4 class="title">社区</h4>
+                    <h4 class="title">用户信息</h4>
                     <div class="content community">
-                        <p>QQ群：277327792</p>
-                        <p><a href="http://wenda.ghostchina.com/" title="Ghost中文网问答社区" target="_blank"
-                              onclick="_hmt.push(['_trackEvent', 'big-button', 'click', '问答社区'])"><i
-                                        class="fa fa-comments"></i> 问答社区</a></p>
-                        <p><a href="http://weibo.com/ghostchinacom" title="Ghost中文网官方微博" target="_blank"
-                              onclick="_hmt.push(['_trackEvent', 'big-button', 'click', '官方微博'])"><i
-                                        class="fa fa-weibo"></i> 官方微博</a></p>
+                        <p>昵称：{{$article['author']}}</p>
+                        <p>联系方式：{{$article['email']}}</p>
                     </div>
                 </div>
                 <div class="widget">

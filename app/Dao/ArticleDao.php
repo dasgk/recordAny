@@ -44,17 +44,34 @@ class ArticleDao extends Article
         $article_raw_list = Article::orderBy('look_num','desc')->orderBy('article_id','desc')->skip(($page-1)*10)->take(10)->get();
         $article_list = array();
         foreach ($article_raw_list as $item) {
-            $mm_item['title'] = $item->title;
-            $uid = $item->uid;
-            $user = User::where('uid', $uid)->first();
-            $mm_item['author'] = $user->nick_name;
-            $mm_item['uid'] = $user->uid;
-            $mm_item['list_img'] = get_img($item->content);
-            $mm_item['abstract'] = self::get_abstract($item->content);
-            $mm_item['tags'] = LabelDao::get_label_str_list_by_article_id($item->article_id);
-            $mm_item['time'] = $item->updated_at->format("Y年m月d日");
+            $mm_item = self::get_article_info_by_article_id($item->article_id);
             $article_list[] = $mm_item;
         }
         return $article_list;
+    }
+
+    public static function get_article_info_by_article_id($article_id){
+        $item = self::find($article_id);
+        $mm_item['title'] = $item->title;
+        $uid = $item->uid;
+        $user = User::where('uid', $uid)->first();
+        $mm_item['author'] = $user->nick_name;
+        $mm_item['email'] = $user->email;
+        $mm_item['article_id'] = $item->article_id;
+        $mm_item['uid'] = $user->uid;
+        $mm_item['list_img'] = get_img($item->content);
+        $mm_item['abstract'] = self::get_abstract($item->content);
+        $mm_item['content'] = $item->content;
+        $mm_item['tags'] = LabelDao::get_label_str_list_by_article_id($item->article_id);
+        $mm_item['time'] = $item->updated_at->format("Y年m月d日");
+        return $mm_item;
+    }
+
+    public static function increament_article_look_num($article_id){
+        $article = self::find($article_id);
+        $look_num = $article->look_num ;
+        $look_num++;
+        $article->look_num =$look_num;
+        $article->save();
     }
 }

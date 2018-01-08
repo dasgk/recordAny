@@ -6,4 +6,5 @@ Route::group([
 ], function () {
     Route::get('/', 'ArticleController@new_article');
     Route::post('/save_article', 'ArticleController@save_article');
+    Route::get('/article_detail', 'ArticleController@article_detail');
 });

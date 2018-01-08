@@ -203,8 +203,6 @@
                     imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
                     imageUploadURL: "{{url('/ueditor/uploadimage?_token='.csrf_token())}}",
                     onload: function () {
-                        //    this.setValue("{{$article->content}}")
-
                     }
                 });
 
