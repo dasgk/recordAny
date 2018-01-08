@@ -37,7 +37,7 @@ class ArticleDao extends Article
            $content= str_replace($img_str,'',$content);
             $img_str = get_img($content);
         }
-        return substr($content,0,50);
+        return mb_substr($content,0,250,"UTF-8").'...';
     }
 
     public static function get_article_list_for_index($page = 1){
