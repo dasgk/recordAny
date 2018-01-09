@@ -6,7 +6,9 @@ use App\Dao\AppUsersDao;
 use App\Dao\ArticleCommentDao;
 use App\Dao\ArticleDao;
 use App\Dao\LabelDao;
+use App\Dao\UserArticleRecordDao;
 use App\Dao\UsersDao;
+use App\Exceptions\ApiErrorException;
 use App\Http\Controllers\Controller;
 use App\Models\Article;
 use App\Models\ArticleLabel;
@@ -92,5 +94,27 @@ class ArticleController extends Controller
         $res['article'] = $article;
         ArticleDao::increament_article_look_num($id);
         return view('article.article_detail', $res);
+    }
+
+    /**
+     * 对文章点赞
+     */
+    public function like_article()
+    {
+        $id = request('article_id');
+        $article = Article::find($id);
+        if(empty($article)){
+           throw new ApiErrorException('抱歉找不到对应的文章');
+        }
+        //判断该用户是否已经点过咱
+        if(UserArticleRecordDao::is_user_like_article(Auth::user()->uid,$id)){
+            throw new ApiErrorException('抱歉您已经点过赞啦');
+        }
+        $collect_num = $article->collect_num;
+        $collect_num++;
+        $article->collect_num = $collect_num;;
+        $article->save();
+        UserArticleRecordDao::user_like_article(Auth::user()->uid,$id);
+        return response_json(1, array());
     }
 }

@@ -237,6 +237,7 @@
         send_ajax("{{url('user/get_info_list')}}", {'type': type}, 'get', fill_table);
     }
     $(function () {
+        @if(!empty(Auth::user()) &&(Auth::user()->uid == $user['uid']))
         $(".person-nick-name").click(function () {
             var clickObj = $(this);
             content = clickObj.html();
@@ -249,6 +250,7 @@
             content = content.replace(/\s/g, '')
             changeToEditforComments(clickObj);
         })
+        @endif
         //页面加载时得到最新的信息列表
         $(".my_tab_li").click(function () {
             type = $(this).attr('data-modal');

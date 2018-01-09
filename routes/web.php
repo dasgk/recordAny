@@ -2,7 +2,8 @@
 
 // 首页
 Route::get('/', 'HomeController@index');
-Route::get('/home', 'HomeController@welcome');
+//关于
+Route::get('/about', 'HomeController@about');
 
 // 前台登录注册路由
 Auth::routes();
@@ -21,7 +22,7 @@ Route::group([
     'prefix' => 'articles',
     'namespace' => 'Article',
 ], function () {
-
+    Route::get('/article_detail', 'ArticleController@article_detail');
 });
 
 

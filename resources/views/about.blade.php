@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{{url('css/monokai_sublime.min.css')}}">
     <link href="{{url('css/magnific-popup.min.css')}}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{url('css/screen.css')}}"/>
+    <link rel="stylesheet" href=" {{url('css/buttons.css')}}">
     <script type="text/javascript" src="{{url('js/ghost-url.min.js')}}"></script>
 </head>
 <body class="home-template">
@@ -47,9 +48,9 @@
                 </div>
                 <div class="collapse navbar-collapse" id="main-menu">
                     <ul class="menu">
-                        <li class="nav-current" role="presentation"><a href="/">首页</a></li>
+                        <li  role="presentation"><a href="/">首页</a></li>
                         <li role="presentation"><a href="{{url('user/profile')}}">个人中心</a></li>
-                        <li role="presentation"><a href="{{url('/about')}}">关于</a></li>
+                        <li  class="nav-current" role="presentation"><a href="/ghost-cheat-sheet/">关于</a></li>
                     </ul>
                 </div>
             </div>
@@ -64,59 +65,28 @@
     <div class="container">
         <div class="row">
             <main class="col-md-8 main-content">
-                @foreach($article_list as $article)
+
                 <article id=109 class="post tag-android tag-ke-hu-duan">
 
                     <div class="post-head">
-                        <h1 class="post-title"><a href="{{url('articles/article_detail?id='.$article['article_id'])}}">{{$article['title']}}</a></h1>
-                        <div class="post-meta">
-                            <span class="author">作者：<a href="/user/info/{{$article['uid']}}/">{{$article['author']}}</a></span> &bull;
-                            <time class="post-date" datetime="2017年11月8日星期三下午4点44分" title="2017年11月8日星期三下午4点44分">
-                                {{$article['time']}}
-                            </time>
-                        </div>
-                    </div>
-                    @if(!empty($article['list_img']))
-                        <div class="featured-media">
-                            {!! $article['list_img'] !!}
-                        </div>
-                    @endif
-                    <div class="post-content">
-                        {!! $article['abstract'] !!}
-                    </div>
-                    <div class="post-permalink">
-                        <a href="{{url('articles/article_detail?id='.$article['article_id'])}}" class="btn btn-default">阅读全文</a>
-                    </div>
+                        <h1 class="post-title"><a href="{{url('/about')}}">关于我们</a></h1>
 
-                    <footer class="post-footer clearfix">
-                        <div class="pull-left tag-list">
-                            <i class="fa fa-folder-open-o"></i>
-                            @foreach($article['tags'] as $tag)
-                                <a href="/tag/android/">{{$tag}}</a>,
-                            @endforeach
-                        </div>
-                        <div class="pull-right share">
-                        </div>
-                    </footer>
+                    </div>
+                    <div class="post-content">
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本博客所开之目的在于精炼所学技能，当前版本使用的是laravel5.4，于github上有本项目的源码。</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;预备在项目中使用的有<strong>迅搜</strong>，<strong>rsync</strong>，
+                            <strong>git</strong>，<strong>pvstat</strong>，<strong>防盗链</strong>，<strong></strong></p>
+
+                    </div>
                 </article>
-                @endforeach
-                <nav class="pagination" role="navigation">
-                    <span class="page-number">第 1 页 &frasl; 共 9 页</span>
-                    <a class="older-posts" href="/page/2/"><i class="fa fa-angle-right"></i></a>
-                </nav>
             </main>
 
             <aside class="col-md-4 sidebar">
                 <div class="widget">
-                    <h4 class="title">社区</h4>
+                    <h4 class="title">用户信息</h4>
                     <div class="content community">
-                        <p>QQ群：277327792</p>
-                        <p><a href="http://wenda.ghostchina.com/" title="Ghost中文网问答社区" target="_blank"
-                              onclick="_hmt.push(['_trackEvent', 'big-button', 'click', '问答社区'])"><i
-                                        class="fa fa-comments"></i> 问答社区</a></p>
-                        <p><a href="http://weibo.com/ghostchinacom" title="Ghost中文网官方微博" target="_blank"
-                              onclick="_hmt.push(['_trackEvent', 'big-button', 'click', '官方微博'])"><i
-                                        class="fa fa-weibo"></i> 官方微博</a></p>
+                        <p>昵称：phper</p>
+                        <p>联系方式：13642017062@139.com</p>
                     </div>
                 </div>
                 <div class="widget">

@@ -23,7 +23,8 @@
         <div class="col-sm-12">
 
             <!-- start logo -->
-            <a class="branding" href="http://www.ghostchina.com" title="Ghost 开源博客平台"><img src="{{url('img/4f5566c1f7bc28b3f7ac1fada8abe.png')}}"  alt="Ghost 开源博客平台"></a>
+            <a class="branding" href="http://www.ghostchina.com" title="Ghost 开源博客平台"><img
+                        src="{{url('img/4f5566c1f7bc28b3f7ac1fada8abe.png')}}" alt="Ghost 开源博客平台"></a>
             <!-- end logo -->
             <h2 class="text-hide">Ghost 是一个简洁、强大的写作平台。你只须专注于用文字表达你的想法就好，其余的事情就让 Ghost 来帮你处理吧。</h2>
 
@@ -59,7 +60,6 @@
 </nav>
 <!-- end navigation -->
 
-
 <!-- start site's main content area -->
 <section class="content-wrap">
     <div class="container">
@@ -91,7 +91,8 @@
                         <div class="pull-right share">
                         </div>
                     </footer>
-                    <div class="editormd editormd-vertical editormd-theme-white" style="height:0%;border:0px solid #ddd;text-align:center">
+                    <div class="editormd editormd-vertical editormd-theme-white"
+                         style="height:0%;border:0px solid #ddd;text-align:center">
                         <a href="javascript:void(0)" onclick="publish()" class="button button-action button-pill">点赞</a>
                     </div>
                 </article>
@@ -173,5 +174,24 @@
 <script src="{{url('js/highlight.min.js')}}"></script>
 <script src="{{url('js/jquery.magnific-popup.min.js')}}"></script>
 <script src="{{url('js/main.js')}}"></script>
+<script src="{{url('js/ajax.js')}}"></script>
+<script src="{{url('js/plugins/layer/layer.js')}}"></script>
+<script>
+    function callback(data) {
+        if (data.status) {
+            layer.msg('+1', function () {
+            });
+            return;
+        }
+        layer.msg(data.msg, function () {
+        });
+    }
+    function publish() {
+        send_ajax("{{url('articles/like_article')}}", {
+            'article_id': "{{$article['article_id']}}",
+            '_token': "{{csrf_token()}}"
+        }, 'post', callback);
+    }
+</script>
 </body>
 </html>

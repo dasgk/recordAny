@@ -23,4 +23,14 @@ class HomeController extends Controller
         $res['article_list'] = ArticleDao::get_article_list_for_index();
         return view('home', $res);
     }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function about()
+    {
+        return view('about');
+    }
 }
