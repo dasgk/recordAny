@@ -22,6 +22,7 @@ class AppUsersDao extends AppUsers
         foreach($users as $user){
             $item['nick_name'] = $user->nick_name;
             $item['comments'] = $user->comments;
+            $item['uid'] = $user->uid;
             $item['avatar'] = $user->avatar;
             $item['article_num'] = Article::where('uid', $id)->count();
             $item['comment_num'] = ArticleCommentDao::where('uid', $user->uid)->count();
