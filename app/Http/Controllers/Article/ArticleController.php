@@ -117,4 +117,8 @@ class ArticleController extends Controller
         UserArticleRecordDao::user_like_article(Auth::user()->uid,$id);
         return response_json(1, array());
     }
+
+    public function test(){
+        return view('article.test');
+    }
 }
