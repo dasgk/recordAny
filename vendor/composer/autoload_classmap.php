@@ -16,6 +16,7 @@ return array(
     'App\\Dao\\AppUsersDao' => $baseDir . '/app/Dao/AppUsersDao.php',
     'App\\Dao\\ArticleCommentDao' => $baseDir . '/app/Dao/ArticleCommentDao.php',
     'App\\Dao\\ArticleDao' => $baseDir . '/app/Dao/ArticleDao.php',
+    'App\\Dao\\ConstDao' => $baseDir . '/app/Dao/ConstDao.php',
     'App\\Dao\\LabelDao' => $baseDir . '/app/Dao/LabelDao.php',
     'App\\Dao\\SettingDao' => $baseDir . '/app/Dao/SettingDao.php',
     'App\\Dao\\SmsVerifyDao' => $baseDir . '/app/Dao/SmsVerifyDao.php',

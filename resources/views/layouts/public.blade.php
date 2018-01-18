@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="{{cdn('css/animate.min.css')}}">
     <link rel="stylesheet" href="{{cdn('css/style.min.css')}}">
     <link rel="stylesheet" href="{{cdn('css/common.css'.$_static_update)}}">
-    <link rel="stylesheet" href="{{cdn('css/style.css'.$_static_update)}}">
+
     <!--[if lte IE 9]>
     <style type="text/css">
         input, textarea {
