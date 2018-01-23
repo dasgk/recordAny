@@ -1,18 +1,8 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <title>点滴记录</title>
-    <link rel="stylesheet" href="{{url('css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href=" {{url('css/font-awesome.min.css')}}">
-    <link rel="stylesheet" href=" {{url('css/commentEditor.css')}}">
+    @extends('layout.header')
     <link rel="stylesheet" href=" {{url('css/comment.css')}}">
-    <link rel="stylesheet" href="{{url('css/monokai_sublime.min.css')}}">
-    <link rel="stylesheet" href="{{url('css/magnific-popup.min.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{url('css/screen.css')}}"/>
-    <link rel="stylesheet" href=" {{url('css/buttons.css')}}">
-    <script type="text/javascript" src="{{url('js/ghost-url.min.js')}}"></script>
 </head>
 <body class="home-template">
 
@@ -130,8 +120,9 @@
                 <div class="widget">
                     <h4 class="title">标签云</h4>
                     <div class="content tag-cloud">
-                        <a href="/tag/ke-hu-duan/">客户端</a>
-                        <a href="/tag-cloud/">...</a>
+                        @foreach($tags as $tag)
+                            <a href="/tag/{{$tag}}/">{{$tag}}</a>
+                        @endforeach
                     </div>
                 </div>
             </aside>
@@ -139,52 +130,8 @@
     </div>
 </section>
 
-<footer class="main-footer">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-4">
-                <div class="widget">
-                    <h4 class="title">友链</h4>
-                    <div class="content tag-cloud friend-links">
-                        <a href="http://www.bootcss.com" title="Bootstrap中文网"
-                           onclick="_hmt.push(['_trackEvent', 'link', 'click', 'Bootstrap中文网'])" target="_blank">Bootstrap中文网</a>
-                    </div>
-                </div>
-            </div>
 
-            <div class="col-sm-4">
-                <div class="widget">
-                    <h4 class="title">标签云</h4>
-                    <div class="content tag-cloud">
-                        <a href="/tag/about-ghost/">Ghost</a>
-                        <a href="/tag-cloud/">...</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-4">
-                <div class="widget">
-                    <h4 class="title">合作伙伴</h4>
-                    <div class="content tag-cloud friend-links">
-                        <a href="https://www.upyun.com/" title="又拍云"
-                           onclick="_hmt.push(['_trackEvent', 'link', 'click', 'upyun'])" target="_blank">又拍云</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</footer>
-<div class="copyright">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-                <span>Copyright &copy; <a href="http://www.ghostchina.com/">Ghost中文网</a></span> |
-                <span><a href="http://www.miibeian.gov.cn/" target="_blank">京ICP备11008151号</a></span> |
-                <span>京公网安备11010802014853</span>
-            </div>
-        </div>
-    </div>
-</div>
+@extends('layout.footer')
 
 </body>
 <script src="{{url('js/jquery.min.js')}}"></script>
@@ -239,14 +186,6 @@
     }
 
     $(function () {
-        /*
-         var editor = $('#textarea1').wangEditor({
-         'menuConfig': [
-         ['insertCode', 'bold'],
-         ['list', 'justify'],
-         ['insertHr', 'undo']
-         ]
-         });*/
         var editor2 = $('#textarea2').wangEditor({
             'menuConfig': [
                 ['insertCode', 'bold'],

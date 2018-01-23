@@ -39,7 +39,7 @@ class ArticleCommentDao extends ArticleComment
         $data = array();
 
         foreach ($list as $item) {
-            
+
             $data[] = array($item->id, $item->title,$item->updated_at->toDateTimeString());
         }
         $res = array('header' => array('编号', '内容', '时间'),

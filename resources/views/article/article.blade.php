@@ -1,23 +1,11 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <title>Ghost 开源博客平台 | Ghost中文网</title>
-    <link rel="stylesheet" href="{{url('css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{url('css/bootstrap-tags.css')}}">
-
-    <link rel="stylesheet" href=" {{url('css/font-awesome.min.css')}}">
-    <link rel="stylesheet" href=" {{url('css/buttons.css')}}">
-
+    @extends('layout.header')
     <link rel="stylesheet" href="{{url('css/write.css')}}">
     <link rel="stylesheet" href="{{url('css/blogmoveform.css')}}">
     <link rel="stylesheet" href="{{url('css/bootstrap-tagsinput.css')}}">
-
     <link rel="stylesheet" href="{{url('plugins/editor.md-master/css/editormd.css')}}"/>
-    <link rel="stylesheet" type="text/css" href="{{url('css/screen.css')}}"/>
-    <script type="text/javascript" src="{{url('js/ghost-url.min.js')}}"></script>
-
 </head>
 <body class="home-template">
 
@@ -87,53 +75,8 @@
 <div class="editormd editormd-vertical editormd-theme-white" style="height:0%;border:0px solid #ddd;text-align:center">
     <a href="javascript:void(0)" onclick="publish()" class="button button-action button-pill">发布</a>
 </div>
-<footer class="main-footer">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-4">
-                <div class="widget">
-                    <h4 class="title">友链</h4>
-                    <div class="content tag-cloud friend-links">
-                        <a href="http://www.bootcss.com" title="Bootstrap中文网"
-                           onclick="_hmt.push(['_trackEvent', 'link', 'click', 'Bootstrap中文网'])" target="_blank">Bootstrap中文网</a>
-                    </div>
-                </div>
-            </div>
 
-            <div class="col-sm-4">
-                <div class="widget">
-                    <h4 class="title">标签云</h4>
-                    <div class="content tag-cloud">
-                        <a href="/tag/about-ghost/">Ghost</a>
-                        <a href="/tag-cloud/">...</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-4">
-                <div class="widget">
-                    <h4 class="title">合作伙伴</h4>
-                    <div class="content tag-cloud friend-links">
-                        <a href="https://www.upyun.com/" title="又拍云"
-                           onclick="_hmt.push(['_trackEvent', 'link', 'click', 'upyun'])" target="_blank">又拍云</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</footer>
-
-<div class="copyright">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-                <span>Copyright &copy; <a href="http://www.ghostchina.com/">Ghost中文网</a></span> |
-                <span><a href="http://www.miibeian.gov.cn/" target="_blank">京ICP备11008151号</a></span> |
-                <span>京公网安备11010802014853</span>
-            </div>
-        </div>
-    </div>
-</div>
+@extends('layout.footer')
 <script src="{{url('js/jquery.min.js')}}"></script>
 <script src="{{url('js/bootstrap.min.js')}}"></script>
 <script src="{{url('js/jquery.fitvids.min.js')}}"></script>

@@ -1,16 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <title>Ghost 开源博客平台 | Ghost中文网</title>
-    <link rel="stylesheet" href="{{url('css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href=" {{url('css/font-awesome.min.css')}}">
-    <link rel="stylesheet" href="{{url('css/monokai_sublime.min.css')}}">
-    <link href="{{url('css/magnific-popup.min.css')}}" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="{{url('css/screen.css')}}"/>
-    <link rel="stylesheet" href=" {{url('css/buttons.css')}}">
-    <script type="text/javascript" src="{{url('js/ghost-url.min.js')}}"></script>
+    @extends('layout.header')
 </head>
 <body class="home-template">
 

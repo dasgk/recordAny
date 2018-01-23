@@ -40,7 +40,7 @@ class ArticleDao extends Article
             $content = str_replace($img_str, '', $content);
             $img_str = get_img($content);
         }
-        return mb_substr($content, 0, 250, "UTF-8") . '...';
+        return mb_substr($content, 0, 100, "UTF-8") . '...';
     }
 
     /**

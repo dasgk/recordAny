@@ -101,6 +101,7 @@ class ArticleController extends Controller
         $res['comments'] = ArticleCommentDao::get_comments_by_article_id($id);
         //浏览量自增
         ArticleDao::increament_article_look_num($id);
+        $res['tags'] = LabelDao::get_lable_for_index();
         return view('article.article_detail', $res);
     }
 
@@ -138,7 +139,12 @@ class ArticleController extends Controller
 
     }
 
+    /**
+     * 测试接口
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function test(){
         return view('article.test');
     }
+
 }
