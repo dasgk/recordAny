@@ -7,6 +7,9 @@ use App\Dao\ArticleDao;
 use App\Dao\LabelDao;
 use App\Dao\ConstDao;
 use App\Models\Article;
+use App\Models\IPStat;
+use App\Models\PvStat;
+use App\Models\UvStat;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Pagination\LengthAwarePaginator;
 
@@ -33,11 +36,10 @@ class HomeController extends Controller
         $current_page = request('pageNum'); // 当前页
         $path = Paginator::resolveCurrentPath(); // 获取当前的链接"http://localhost/admin/account"
         $infoList['retData'] = $article_list;
-        $infoList['paginator'] = new LengthAwarePaginator($article_list, $total,$perPage, $current_page, [
-            'path' => $path ,  //设定个要分页的url地址。也可以手动通过 $paginator ->setPath(‘路径’) 设置
+        $infoList['paginator'] = new LengthAwarePaginator($article_list, $total, $perPage, $current_page, [
+            'path' => $path,  //设定个要分页的url地址。也可以手动通过 $paginator ->setPath(‘路径’) 设置
             'pageName' => 'page', //链接的参数名 http://localhost/admin/manage?page=2
         ]);
-
         return view('home', $infoList);
     }
 
@@ -49,5 +51,82 @@ class HomeController extends Controller
     public function about()
     {
         return view('about');
+    }
+
+    public function getIp()
+    {
+
+        if(!empty($_SERVER["HTTP_CLIENT_IP"]))
+        {
+            $cip = $_SERVER["HTTP_CLIENT_IP"];
+        }
+        else if(!empty($_SERVER["HTTP_X_FORWARDED_FOR"]))
+        {
+            $cip = $_SERVER["HTTP_X_FORWARDED_FOR"];
+        }
+        else if(!empty($_SERVER["REMOTE_ADDR"]))
+        {
+            $cip = $_SERVER["REMOTE_ADDR"];
+        }
+        else
+        {
+            $cip = '';
+        }
+        preg_match("/[\d\.]{7,15}/", $cip, $cips);
+        $cip = isset($cips[0]) ? $cips[0] : 'unknown';
+        unset($cips);
+
+        return $cip;
+    }
+
+    public function stat()
+    {
+        $url = request('url');
+        $cookie = request('cookie');
+        //PV统计的话，每小时作为一个记录
+        $hour = date("Y-m-d H:00:00", time());
+        $stat = PvStat::where('url', $url)->where('stat_time', $hour)->first();
+        if (empty($stat)) {
+            $stat = new PvStat();
+            $stat->url = $url;
+            $stat->stat_time = $hour;
+            $num = 0;
+        } else {
+            $num = $stat->num;
+        }
+        $num++;
+        $stat->url = $url;
+        $stat->num = $num;
+        $stat->save();
+        //UV统计
+        $stat = UvStat::where('url', $url)->where('stat_time', $hour)->where('cookie', $cookie)->first();
+        if (empty($stat)) {
+            $stat = new UvStat();
+            $stat->url = $url;
+            $stat->cookie = $cookie;
+            $stat->stat_time = $hour;
+            $num = 0;
+        } else {
+            $num = $stat->num;
+        }
+        $num++;
+        $stat->url = $url;
+        $stat->num = $num;
+        $stat->save();
+        //ip统计
+        $stat = IPStat::where('url', $url)->where('stat_time', $hour)->where('ip', $this->getIp())->first();
+        if (empty($stat)) {
+            $stat = new IPStat();
+            $stat->ip = $this->getIp();
+            $stat->url = $url;
+            $stat->stat_time = $hour;
+            $num = 0;
+        } else {
+            $num = $stat->num;
+        }
+        $num++;
+        $stat->url = $url;
+        $stat->num = $num;
+        $stat->save();
     }
 }

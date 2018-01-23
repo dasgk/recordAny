@@ -46,3 +46,23 @@
         </div>
     </div>
 </div>
+<script>
+    function getCookie(name)
+    {
+        var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+        if(arr=document.cookie.match(reg))
+            return unescape(arr[2]);
+        else
+            return null;
+    }
+    cookie = getCookie('PHPSESSID');
+    $.ajax({
+        type: 'post',
+        url: "{{url('stat')}}",
+        async: false,
+        data: {url:location.href,cookie:cookie,"_token":"{{csrf_token()}}"},
+        success: function (data) {
+            callback(data);
+        }
+    });
+</script>

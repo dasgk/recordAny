@@ -4,6 +4,7 @@
 Route::get('/', 'HomeController@index');
 //关于
 Route::get('/about', 'HomeController@about');
+Route::post('/stat', 'HomeController@stat');
 
 // 前台登录注册路由
 Auth::routes();
