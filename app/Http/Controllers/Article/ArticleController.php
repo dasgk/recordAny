@@ -57,9 +57,13 @@ class ArticleController extends Controller
         $article->save();
         //处理标签
         $labels = explode(',', $labels);
+
         $label_ids = array();
         foreach ($labels as $label) {
             $label = trim($label);
+            if(empty($label)){
+                continue;
+            }
             $label_model = Label::where('uid', $uid)->where('title', $label)->first();
             if (empty($label_model)) {
                 $label_model = new Label();

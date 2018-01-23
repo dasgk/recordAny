@@ -56,7 +56,7 @@
     <div class="container">
         <div class="row">
             <main class="col-md-8 main-content">
-                @foreach($article_list as $article)
+                @foreach($retData as $article)
                 <article id=109 class="post tag-android tag-ke-hu-duan">
 
                     <div class="post-head">
@@ -93,8 +93,18 @@
                 </article>
                 @endforeach
                 <nav class="pagination" role="navigation">
-                    <span class="page-number">第 1 页 &frasl; 共 9 页</span>
-                    <a class="older-posts" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+                    <div class="row">
+                        <div class="col-sm-12">
+
+                        </div>
+                    </div>
+                    @if($paginator->currentPage()>1)
+                        <a class="older-posts" href="{{$paginator->url($paginator->currentPage()-1)}}"><i class="fa fa-angle-left"></i></a>
+                    @endif
+                    <span class="page-number">第 {{$paginator->currentPage()}} 页 &frasl; 共 {{$paginator->lastPage()}} 页</span>
+                    @if($paginator->hasMorePages())
+                        <a class="older-posts" href="{{$paginator->nextPageUrl()}}"><i class="fa fa-angle-right"></i></a>
+                    @endif
                 </nav>
             </main>
 

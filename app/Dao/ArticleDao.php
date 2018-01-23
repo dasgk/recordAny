@@ -48,9 +48,8 @@ class ArticleDao extends Article
      * @param int $page
      * @return array
      */
-    public static function get_article_list_for_index($page = 1)
+    public static function get_article_list_for_index($article_raw_list)
     {
-        $article_raw_list = Article::orderBy('look_num', 'desc')->orderBy('article_id', 'desc')->skip(($page - 1) * 10)->take(10)->get();
         $article_list = array();
         foreach ($article_raw_list as $item) {
             $mm_item = self::get_article_info_by_article_id($item->article_id);
