@@ -24,7 +24,7 @@ function send_ajax(url, data, method,callback) {
         async: false,
         data: {url:location.href,cookie:cookie,"_token":"{{csrf_token()}}"},
         success: function (data) {
-            callback(data);
+       //     callback(data);
         }
     });
 

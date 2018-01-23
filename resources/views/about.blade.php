@@ -4,6 +4,8 @@
     @extends('layout.header')
 </head>
 <body class="home-template">
+<div class="fakeloader"></div>
+<div id="body_content" STYLE="display: none">
 
 <!-- start header -->
 <header class="main-header"

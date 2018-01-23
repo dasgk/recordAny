@@ -6,6 +6,9 @@
     <link rel="stylesheet" href=" {{url('css/comment.css')}}">
 </head>
 <body class="home-template">
+<div class="fakeloader"></div>
+<div id="body_content" STYLE="display: none">
+
 
 <header class="main-header"
         style="background-image: url(http://static.ghostchina.com/image/6/d1/fcb3879e14429d75833a461572e64.jpg)">

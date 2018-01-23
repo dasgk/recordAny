@@ -1,4 +1,3 @@
-
 <footer class="main-footer">
     <div class="container">
         <div class="row">
@@ -46,23 +45,37 @@
         </div>
     </div>
 </div>
+</div>
+<script src="{{url('js/fakeLoader.min.js')}}"></script>
 <script>
-    function getCookie(name)
-    {
-        var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
-        if(arr=document.cookie.match(reg))
+    function getCookie(name) {
+        var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+        if (arr = document.cookie.match(reg))
             return unescape(arr[2]);
         else
             return null;
     }
-    cookie = getCookie('PHPSESSID');
-    $.ajax({
-        type: 'post',
-        url: "{{url('stat')}}",
-        async: false,
-        data: {url:location.href,cookie:cookie,"_token":"{{csrf_token()}}"},
-        success: function (data) {
-            callback(data);
-        }
+
+    window.onload = function () {
+        $(".fakeloader").fakeLoader({
+            timeToHide: 1200,
+            bgColor: "#bdbbbb",
+            spinner: "spinner1"
+        });
+        $("#body_content").show();
+    };
+    $(document).ready(function () {
+        cookie = getCookie('PHPSESSID');
+        $.ajax({
+            type: 'post',
+            url: "{{url('stat')}}",
+            async: false,
+            data: {url: location.href, cookie: cookie, "_token": "{{csrf_token()}}"},
+            success: function (data) {
+                //          callback(data);
+            }
+        });
     });
+
+
 </script>

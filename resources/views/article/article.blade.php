@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="{{url('plugins/editor.md-master/css/editormd.css')}}"/>
 </head>
 <body class="home-template">
+<div class="fakeloader"></div>
+<div id="body_content" STYLE="display: none">
 
 <!-- start header -->
 <header class="main-header"
