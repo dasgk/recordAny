@@ -6,6 +6,7 @@ use App\Models\ArticleComment;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Article;
 use App\User;
+use App\Models\UserArticleRecord;
 
 class ArticleDao extends Article
 {
@@ -40,6 +41,11 @@ class ArticleDao extends Article
         return mb_substr($content,0,250,"UTF-8").'...';
     }
 
+    /**
+     * 为首页提供文章列表
+     * @param int $page
+     * @return array
+     */
     public static function get_article_list_for_index($page = 1){
         $article_raw_list = Article::orderBy('look_num','desc')->orderBy('article_id','desc')->skip(($page-1)*10)->take(10)->get();
         $article_list = array();
@@ -50,7 +56,12 @@ class ArticleDao extends Article
         return $article_list;
     }
 
-    public static function get_article_info_by_article_id($article_id){
+    /**
+     * 获得文章详情接口
+     * @param $article_id
+     * @return mixed
+     */
+    public static function get_article_info_by_article_id($article_id, $reader =0){
         $item = self::find($article_id);
         $mm_item['title'] = $item->title;
         $uid = $item->uid;
@@ -64,6 +75,13 @@ class ArticleDao extends Article
         $mm_item['content'] = $item->content;
         $mm_item['tags'] = LabelDao::get_label_str_list_by_article_id($item->article_id);
         $mm_item['time'] = $item->updated_at->format("Y年m月d日");
+        $mm_item['is_collected'] = 0;
+        if(!empty($reader)){
+            $is_collected = UserArticleRecord::where('article_id', $article_id)->where('uid', $reader)->where('type',ConstDao::TYPE_COLLECT)->first();
+            if(!empty($is_collected)){
+                $mm_item['is_collected'] = 1;
+            }
+        }
         return $mm_item;
     }
 

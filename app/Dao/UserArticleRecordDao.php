@@ -24,4 +24,8 @@ class UserArticleRecordDao extends UserArticleRecord
        $record->type = ConstDao::TYPE_COLLECT;
        $record->save();
    }
+
+   public static function user_dislike_article($uid, $article_id){
+       UserArticleRecord::where('uid', $uid)->where('article_id', $article_id)->where('type', ConstDao::TYPE_COLLECT)->delete();
+   }
 }

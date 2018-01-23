@@ -78,59 +78,44 @@
                     </footer>
                     <div class="editormd editormd-vertical editormd-theme-white"
                          style="height:0%;border:0px solid #ddd;text-align:center">
-                        <a href="javascript:void(0)" onclick="publish()" class="button button-action button-pill">点赞</a>
+                        @if($article['is_collected'])
+                            <a href="javascript:void(0)" onclick="publish()" class="button button-action button-pill">取消赞</a>
+                        @else
+                            <a href="javascript:void(0)" onclick="publish()" class="button button-action button-pill">点赞</a>
+                        @endif
+
                     </div>
                 </article>
                 <!--评论相关-->
-
-
                 <div class="project">
                     <label>评论列表</label>
+                    @foreach($comments as $item)
                     <div class="in2">
                         <div class="pl">
                             <div class="tx"><a href="http://www.jq22.com/mem750253"><img
-                                            src="http://www.jq22.com/tx/54.png"></a></div>
+                                            src="{{$item['avatar']}}"></a></div>
                             <ul class="plbg">
-                                <div class="f"> MY朦胧的爱 <span class="jl">0</span></div>
-                                <div class="r"><span class="z12">2018/1/18 12:01:30</span></div>
+                                <div class="f"> {{$item['nick_name']}} <span class="jl">0</span></div>
+                                <div class="r"><span class="z12">{{$item['created_at']}}</span></div>
                                 <div class="dr"></div>
                             </ul>
                             <ul style="word-wrap: break-word;width: 100%">
-                                <p>&nbsp;大神&nbsp; 求分享 1510352122@qq.com 十分感谢&nbsp;</p>
-
-                                <a class="hf" name="51342" style="padding-bottom: 10px;">回复</a>
+                                <p> {!! $item['title'] !!}</p>
                                 <div class="lyhf"></div>
                                 <div class="dr"></div>
                             </ul>
                         </div>
-
-                        <div class="in2" >
-                            <div id="err" class="alert alert-danger" role="alert" style="display:none"><i
-                                        class="fa fa-smile-o"></i> 登录后才可以评论
-                            </div>
-                            <div id="err2" class="alert alert-warning" role="alert" style="display:none"><i
-                                        class="fa fa-smile-o"></i> 30秒后在评论吧!
-                            </div>
-                            <textarea id='textarea1' style='height:200px; width:100%;'></textarea>
-
-                            <div class="r top10">
-                                <button onclick="getPlainTxt()" type="button" id="myButton"
-                                        data-loading-text="Loading..." class="btn btn-primary" autocomplete="off">
-                                    发表评论
-                                </button>
-
-                            </div>
-                            <div class="dr"></div>
-                        </div>
-                        <!--对文章的回复  开始 -->
-                        <hr>
-                        <div class="pl" style="display: block">
+                    </div>
+                    @endforeach
+                    <!--对文章的回复  开始 -->
+                    <div class="in2" >
+                        <div class="pl" style="display: block;margin-left: 0%;width:100%">
                             <label>发表评论</label>
                             <textarea id='textarea2' style='height:150px; width:100%;'></textarea>
                             <button onclick="hftj()" type="button" class="btn btn-primary top10">回复</button>
                         </div>
-                        <!--对文章的回复  结束 -->
                     </div>
+                    <!--对文章的回复  结束 -->
                 </div>
             </main>
 
@@ -206,7 +191,6 @@
 <script src="{{url('js/bootstrap.min.js')}}"></script>
 <script src="{{url('js/jquery.fitvids.min.js')}}"></script>
 <script src="{{url('js/commentEditor.min.js')}}"></script>
-
 <script src="{{url('js/highlight.min.js')}}"></script>
 <script src="{{url('js/jquery.magnific-popup.min.js')}}"></script>
 <script src="{{url('js/main.js')}}"></script>
@@ -226,16 +210,26 @@
         if (hfHTML.length > 5) {
             var h = $.ajax({
                 type: 'post',
-                url: '/fyadd.aspx',
-                data: {yy: pid, nr: hfHTML, ww: a},
+                url: '{{url('articles/save_comments')}}',
+                data: {content: jhf, _token:"{{csrf_token()}}",'article_id':"{{$article['article_id']}}"},
                 cache: false,
-                dataType: 'text',
+                dataType: 'json',
                 success: function (data) {
-                    if (data == "y") {
-                        window.location.reload();
-                    } else {
-                        $("#err2").css("display", "block");
-                        $("#err2").addClass("dou2");
+                    if(data.status == 405){
+                        layer.msg('抱歉请先登录', function () {
+                        });
+                        return;
+                    }else{
+                        if(data.status == 0){
+                            layer.msg(data.msg, function () {
+                            });
+                            return;
+                        }else{
+                            //成功
+                            layer.msg(data.msg, function () {
+                                window.location.reload();
+                            });
+                        }
                     }
                 },
                 error: function () {
@@ -245,13 +239,14 @@
     }
 
     $(function () {
-        var editor = $('#textarea1').wangEditor({
-            'menuConfig': [
-                ['insertCode', 'bold'],
-                ['list', 'justify'],
-                ['insertHr', 'undo']
-            ]
-        });
+        /*
+         var editor = $('#textarea1').wangEditor({
+         'menuConfig': [
+         ['insertCode', 'bold'],
+         ['list', 'justify'],
+         ['insertHr', 'undo']
+         ]
+         });*/
         var editor2 = $('#textarea2').wangEditor({
             'menuConfig': [
                 ['insertCode', 'bold'],
@@ -268,9 +263,9 @@
     });
     function callback(data) {
         if (data.status) {
-            layer.msg('+1', function () {
+            layer.msg(data.msg, function () {
+                window.location.reload();
             });
-            return;
         }
         layer.msg(data.msg, function () {
         });

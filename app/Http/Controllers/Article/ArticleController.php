@@ -88,10 +88,18 @@ class ArticleController extends Controller
      */
     public function article_detail()
     {
+        $user = Auth::user();
+        $uid = 0;
+        if(!empty($user)){
+            $uid = $user->uid;
+        }
         $id = request('id');
-        $article = ArticleDao::get_article_info_by_article_id($id);
+        $res['article']  = ArticleDao::get_article_info_by_article_id($id, $uid);
+        //文章的标签
         $article['tags'] = LabelDao::get_label_str_list_by_article_id($id);
-        $res['article'] = $article;
+        //获得文章的评论列表
+        $res['comments'] = ArticleCommentDao::get_comments_by_article_id($id);
+        //浏览量自增
         ArticleDao::increament_article_look_num($id);
         return view('article.article_detail', $res);
     }
@@ -108,14 +116,26 @@ class ArticleController extends Controller
         }
         //判断该用户是否已经点过咱
         if(UserArticleRecordDao::is_user_like_article(Auth::user()->uid,$id)){
-            throw new ApiErrorException('抱歉您已经点过赞啦');
+            //取消点赞
+            $collect_num = $article->collect_num;
+            $collect_num--;
+            if($collect_num<0){
+                $collect_num=0;
+            }
+            $article->collect_num = $collect_num;;
+            $article->save();
+            UserArticleRecordDao::user_dislike_article(Auth::user()->uid,$id);
+            return response_json(1, array(),"-1");
+        }else{
+            $collect_num = $article->collect_num;
+            $collect_num++;
+            $article->collect_num = $collect_num;;
+            $article->save();
+            UserArticleRecordDao::user_like_article(Auth::user()->uid,$id);
+            return response_json(1, array(),"+1");
         }
-        $collect_num = $article->collect_num;
-        $collect_num++;
-        $article->collect_num = $collect_num;;
-        $article->save();
-        UserArticleRecordDao::user_like_article(Auth::user()->uid,$id);
-        return response_json(1, array());
+
+
     }
 
     public function test(){
