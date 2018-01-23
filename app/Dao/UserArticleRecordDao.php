@@ -17,6 +17,11 @@ class UserArticleRecordDao extends UserArticleRecord
        return empty($record) ? false : true;
    }
 
+    /**
+     * 添加收藏记录
+     * @param $uid
+     * @param $article_id
+     */
    public static function user_like_article($uid, $article_id){
        $record = new UserArticleRecord();
        $record->uid = $uid;
@@ -25,6 +30,11 @@ class UserArticleRecordDao extends UserArticleRecord
        $record->save();
    }
 
+    /**
+     * 删除收藏记录
+     * @param $uid
+     * @param $article_id
+     */
    public static function user_dislike_article($uid, $article_id){
        UserArticleRecord::where('uid', $uid)->where('article_id', $article_id)->where('type', ConstDao::TYPE_COLLECT)->delete();
    }

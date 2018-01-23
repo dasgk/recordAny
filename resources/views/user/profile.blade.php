@@ -198,8 +198,9 @@
     var select_type = '';
     function fill_table(raw_data) {
         clear_table();
+        //raw_data = raw_data.data;
         data = raw_data.data;
-        type = raw_data.type;
+        type = raw_data.data.type;
         var_id = "#my_" + select_type;
         content_list = data.data.data;
         header = data.data.header;
@@ -214,12 +215,15 @@
             str += "<tr>";
             //每行加一个超链接
             for (mm in content_list[item]) {
-                if(mm =='title'){
+                if(mm =='title' && type=='article'){
                     str += "<td style=\"line-height:3.428571\"><a href='../"+select_type+"?id=" +content_list[item]['id']+"'>"+ content_list[item][mm] + "</a></td>";
                 }else{
-                    str += "<td style=\"line-height:3.428571\">" + content_list[item][mm] + "</td>";
+                    if(mm =='title' && (type=='collect' || type=='comment') ){
+                        str += "<td style=\"line-height:3.428571\"><a href='../articles/article_detail"+"?id=" +content_list[item]['id']+"'>"+ content_list[item][mm] + "</a></td>";
+                    }else{
+                        str += "<td style=\"line-height:3.428571\">" + content_list[item][mm] + "</td>";
+                    }
                 }
-
             }
             str += "</tr>";
         }

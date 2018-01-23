@@ -35,6 +35,10 @@ class CommentController extends Controller
         $comment_modal->uid = Auth::user()->uid;
         $comment_modal->title = $content;
         $comment_modal->save();
+        $comment_num = $is_set->comment_num;
+        $comment_num++;
+        $is_set->comment_num = $comment_num;
+        $is_set->save();
         return response_json(1, [], '回复成功');
     }
 }

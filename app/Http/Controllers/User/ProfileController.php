@@ -69,7 +69,11 @@ class ProfileController extends Controller
         } elseif ($type == 'comments') {
             $res['data'] = ArticleCommentDao::get_comments_by_uid($uid);
             $res['type'] = 'comment';
-        } else {
+        } elseif($type=='collects') {
+            //我的收藏
+            $res['data'] = ArticleDao::get_collected_article_list_by_uid($uid);
+            $res['type'] = 'collect';
+        }else{
             //互动好友
             $res = ArticleDao::get_article_list_by_uid($uid);
         }

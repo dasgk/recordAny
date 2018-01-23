@@ -35,9 +35,15 @@ class ArticleCommentDao extends ArticleComment
      */
     public static function get_comments_by_uid($uid)
     {
-        $list = self::where('uid', $uid)->select('title', 'article_id')->get();
-        $res = array('header' => array('编号', '内容', '来源'),
-            'data' => array(array('1', '这是我的评论', '文章1')));
+        $list = self::where('uid', $uid)->select('title', 'article_id', 'id','updated_at')->get();
+        $data = array();
+
+        foreach ($list as $item) {
+            
+            $data[] = array($item->id, $item->title,$item->updated_at->toDateTimeString());
+        }
+        $res = array('header' => array('编号', '内容', '时间'),
+            'data' => $data);
         return $res;
     }
 
@@ -53,13 +59,13 @@ class ArticleCommentDao extends ArticleComment
             return $res;
         }
         $comment_list = self::join('users', 'users.uid', '=', 'article_comments.uid')->where('article_id', $article_id)
-            ->select('article_comments.title','users.uid','users.nick_name','users.avatar','article_comments.created_at')
+            ->select('article_comments.title', 'users.uid', 'users.nick_name', 'users.avatar', 'article_comments.created_at')
             ->orderBy('article_comments.id', 'desc')->get()->toArray();
-       foreach($comment_list as $key=>$item){
-           if(empty($comment_list[$key]['avatar'])){
-               $comment_list[$key]['avatar'] = cdn('img/default_user.png');
-           }
-       }
-       return $comment_list;
+        foreach ($comment_list as $key => $item) {
+            if (empty($comment_list[$key]['avatar'])) {
+                $comment_list[$key]['avatar'] = cdn('img/default_user.png');
+            }
+        }
+        return $comment_list;
     }
 }
