@@ -6,7 +6,14 @@
     <link rel="stylesheet" href=" {{url('css/comment.css')}}">
 </head>
 <body class="home-template">
-<div class="fakeloader"></div>
+
+<div class="loading">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+</div>
 <div id="body_content" STYLE="display: none">
 
 
@@ -128,7 +135,11 @@
                     <h4 class="title">标签云</h4>
                     <div class="content tag-cloud">
                         @foreach($tags as $tag)
-                            <a href="/tag/{{$tag}}/">{{$tag}}</a>
+                            @if($label_id == $tag['id'])
+                                <a style="background:#e67e22;color:#ffffff"href="?label={{$tag['title']}}">{{$tag['title']}}</a>
+                            @else
+                                <a href="?label={{$tag['title']}}">{{$tag['title']}}</a>
+                            @endif
                         @endforeach
                     </div>
                 </div>

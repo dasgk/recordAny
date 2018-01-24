@@ -108,7 +108,7 @@
                         <h4 class="title">标签云</h4>
                         <div class="content tag-cloud">
                             @foreach($labels as $label)
-                                <a href="/tag/{{$label}}/">{{$label}}</a>
+                                <a href="javascript:void(0)">{{$label}}</a>
                             @endforeach
                         </div>
                     </div>

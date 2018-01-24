@@ -58,9 +58,31 @@ class LabelDao extends Article
         if(!empty($label_ids)){
             $list = Label::whereIn('label_id', $label_ids)->get();
             foreach($list as $item){
-                $labels[] = $item->title;
+                $labels[] = array('title'=>$item->title,'id'=>$item->label_id);
             }
         }
         return $labels;
+    }
+
+    /**
+     * 根据标签获得文章ID数组
+     * @param $label
+     * @return array
+     */
+    public static function get_article_ids_by_label($label){
+        $label_list = Label::where('title','like',"%".$label."%")->get();
+        $label_ids = array();
+        foreach($label_list as $label){
+            $label_ids[] = $label->label_id;
+        }
+        //获得关联的标签
+        $article_ids = array();
+        if(!empty($label_ids)){
+            $relative_ids = ArticleLabel::whereIn('label_id', $label_ids)->get();
+            foreach ($relative_ids as $relative_id){
+                $article_ids[] = $relative_id->article_id;
+            }
+        }
+        return $article_ids;
     }
 }

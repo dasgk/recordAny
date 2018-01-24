@@ -22,8 +22,9 @@ class LabelController extends Controller
     /**
      * 首页提供标签云
      */
-    public function labels_for_index()
+    public function articles_by_label()
     {
-
+        $labels = request('label');
+        $article_ids = LabelDao::get_article_ids_by_label($labels);
     }
 }

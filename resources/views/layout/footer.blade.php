@@ -57,15 +57,17 @@
     }
 
     window.onload = function () {
+        /*
         $(".fakeloader").fakeLoader({
             timeToHide: 1200,
             bgColor: "#bdbbbb",
             spinner: "spinner1"
-        });
+        });*/
         $("#body_content").show();
     };
+    cookie = getCookie('admin_username');
     $(document).ready(function () {
-        cookie = getCookie('PHPSESSID');
+
         $.ajax({
             type: 'post',
             url: "{{url('stat')}}",
