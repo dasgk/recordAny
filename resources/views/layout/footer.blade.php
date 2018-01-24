@@ -11,22 +11,28 @@
                 </div>
             </div>
 
+            <!--
             <div class="col-sm-4">
                 <div class="widget">
                     <h4 class="title">标签云</h4>
                     <div class="content tag-cloud">
+
                         <a href="/tag/about-ghost/">Ghost</a>
                         <a href="/tag-cloud/">...</a>
+
                     </div>
                 </div>
             </div>
+                    -->
 
             <div class="col-sm-4">
                 <div class="widget">
                     <h4 class="title">合作伙伴</h4>
                     <div class="content tag-cloud friend-links">
+                        <!--
                         <a href="https://www.upyun.com/" title="又拍云"
                            onclick="_hmt.push(['_trackEvent', 'link', 'click', 'upyun'])" target="_blank">又拍云</a>
+                           -->
                     </div>
                 </div>
             </div>
