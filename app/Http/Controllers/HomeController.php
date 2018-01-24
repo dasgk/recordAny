@@ -33,14 +33,14 @@ class HomeController extends Controller
         if(!empty($label)){
             $article_ids = LabelDao::get_article_ids_by_label($label);
             $count =count($article_ids);
-            $article_raw_list = Article::whereIn('article_id',$article_ids)->orderBy('article_id', 'desc')->paginate(ConstDao::PER_PAGE_SIZE);
+            $article_raw_list = Article::whereIn('article_id',$article_ids)->orderBy('updated_at', 'desc')->paginate(ConstDao::PER_PAGE_SIZE);
             $label_modal = Label::where('title','like',"%".$label."%")->first();
             if(!empty($label_modal)){
                 $label_id = $label_modal->label_id;
             }
         }else{
             $count = Article::orderBy('look_num', 'desc')->count();
-            $article_raw_list = Article::orderBy('look_num', 'desc')->orderBy('article_id', 'desc')->paginate(ConstDao::PER_PAGE_SIZE);
+            $article_raw_list = Article::orderBy('look_num', 'desc')->orderBy('updated_at', 'desc')->paginate(ConstDao::PER_PAGE_SIZE);
         }
         $article_list = ArticleDao::get_article_list_for_index($article_raw_list);
         $infoList['tags'] = LabelDao::get_lable_for_index();

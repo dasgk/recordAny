@@ -57,7 +57,6 @@ class ArticleController extends Controller
         $article->save();
         //处理标签
         $labels = explode(',', $labels);
-
         $label_ids = array();
         foreach ($labels as $label) {
             $label = trim($label);
@@ -74,6 +73,7 @@ class ArticleController extends Controller
             $label_ids[] = $label_model->label_id;
         }
         //处理文章标签
+        ArticleLabel::where('article_id', $id)->delete();
         $id = $article->article_id;
         foreach ($label_ids as $label_id) {
             $label_relative = ArticleLabel::where('label_id', $label_id)->where('article_id', $id)->first();
