@@ -7,7 +7,7 @@
 <div class="fakeloader"></div>
 <div id="body_content" STYLE="display: none">
     <header class="main-header"
-            style="background-image: url(http://static.ghostchina.com/image/6/d1/fcb3879e14429d75833a461572e64.jpg)">
+            style="background-image: url({{url('img/header.jpg')}})">
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">

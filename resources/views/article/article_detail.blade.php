@@ -9,7 +9,8 @@
 <div id="body_content" STYLE="display: none">
 <!-- start header -->
 <header class="main-header"
-        style="background-image: url(http://static.ghostchina.com/image/6/d1/fcb3879e14429d75833a461572e64.jpg)">
+        style="background-image: url({{url('img/header.jpg')}})"
+        >
 
 </header>
 <!-- end header -->
@@ -61,7 +62,7 @@
                         <div class="pull-left tag-list">
                             <i class="fa fa-folder-open-o"></i>
                             @foreach($article['tags'] as $tag)
-                                <a href="/tag/android/">{{$tag}}</a>,
+                                <a href="/tag/android/">{{$tag['title']}}</a>,
                             @endforeach
                         </div>
                         <div class="pull-right share">
@@ -122,7 +123,7 @@
                     <h4 class="title">标签云</h4>
                     <div class="content tag-cloud">
                         @foreach($tags as $tag)
-                            <a href="/tag/{{$tag}}/">{{$tag}}</a>
+                            <a href="{{url('?label=').$tag['title']}}">{{$tag['title']}}</a>
                         @endforeach
                     </div>
                 </div>

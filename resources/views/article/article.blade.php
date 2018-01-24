@@ -13,7 +13,7 @@
 
 <!-- start header -->
 <header class="main-header"
-        style="background-image: url(http://static.ghostchina.com/image/6/d1/fcb3879e14429d75833a461572e64.jpg)">
+        style="background-image: url({{url('img/header.jpg')}})">
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
@@ -69,7 +69,7 @@
     <div class="bs-example">
         <input type="text" id="labels" value="
         @foreach($tags as $tag)
-        {{$tag}},
+        {{$tag['title']}},
          @endforeach
                 " data-role="tagsinput" style="display: none;">
     </div>
