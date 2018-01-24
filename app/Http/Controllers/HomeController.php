@@ -42,7 +42,6 @@ class HomeController extends Controller
             $count = Article::orderBy('look_num', 'desc')->count();
             $article_raw_list = Article::orderBy('look_num', 'desc')->orderBy('article_id', 'desc')->paginate(ConstDao::PER_PAGE_SIZE);
         }
-
         $article_list = ArticleDao::get_article_list_for_index($article_raw_list);
         $infoList['tags'] = LabelDao::get_lable_for_index();
         $total = $count; //记录总条数

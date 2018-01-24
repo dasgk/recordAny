@@ -94,7 +94,7 @@
                         <div class="pull-left tag-list">
                             <i class="fa fa-folder-open-o"></i>
                             @foreach($article['tags'] as $tag)
-                                <a href="/tag/android/">{{$tag}}</a>,
+                                <a href="?label={{$tag['title']}}">{{$tag['title']}}</a>,
                             @endforeach
                         </div>
                         <div class="pull-right share">

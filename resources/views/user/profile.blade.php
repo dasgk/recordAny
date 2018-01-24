@@ -61,7 +61,7 @@
                                                  class="header"><span class="edit_person_pic"></span>
                                         </a>
                                     </dt>
-                                    <dd class="focus_num"><b><a href="/my/follow"
+                                    <dd class="focus_num"><b><a href="javajscript:void(0)"
                                                                 target="_blank">{{$user['article_num']}}</a></b>文章
                                     </dd>
                                     <dd class="fans_num"><b><a href="/my/fans"

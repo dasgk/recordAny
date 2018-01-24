@@ -9,7 +9,7 @@ use App\Models\ArticleLabel;
 use App\Models\Label;
 use Illuminate\Support\Facades\DB;
 
-class LabelDao extends Article
+class LabelDao extends Label
 {
     /**
      * 根据文章ID获得所有标签列表
@@ -27,7 +27,7 @@ class LabelDao extends Article
         if (!empty($label_ids)) {
             $labels = Label::whereIn('label_id', $label_ids)->get();
             foreach ($labels as $label) {
-                $label_str_list[] = $label->title;
+                $label_str_list[] = array('title'=>$label->title,'id'=>$label->label_id);
             }
         }
         return $label_str_list;
@@ -49,6 +49,7 @@ class LabelDao extends Article
     }
 
     public static function get_lable_for_index($page_size = 5){
+
         $list = ArticleLabel::groupBy('label_id')->select(DB::Raw('count(*) as num'),'label_id')->orderBy('num','desc')->paginate($page_size);
         $label_ids = array();
         foreach ($list as $item){
@@ -61,6 +62,7 @@ class LabelDao extends Article
                 $labels[] = array('title'=>$item->title,'id'=>$item->label_id);
             }
         }
+
         return $labels;
     }
 
