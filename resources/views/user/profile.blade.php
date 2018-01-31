@@ -40,6 +40,7 @@
                             <li role="presentation"><a href="/">首页</a></li>
                             <li class="nav-current" role="presentation"><a href="{{url('user/profile')}}">个人中心</a></li>
                             <li role="presentation"><a href="{{url('/about')}}">关于</a></li>
+                            <li role="presentation"><a href="{{url('/search/index')}}">搜索</a></li>
                         </ul>
                     </div>
                 </div>

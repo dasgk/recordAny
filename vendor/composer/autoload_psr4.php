@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'phpDocumentor\\Reflection\\' => array($vendorDir . '/phpdocumentor/reflection-common/src', $vendorDir . '/phpdocumentor/type-resolver/src', $vendorDir . '/phpdocumentor/reflection-docblock/src'),
+    'hightman\\xunsearch\\' => array($vendorDir . '/hightman/xunsearch/wrapper/yii2-ext'),
     'Yajra\\' => array($vendorDir . '/yajra/laravel-pdo-via-oci8/src', $vendorDir . '/yajra/laravel-oci8/src'),
     'Webmozart\\Assert\\' => array($vendorDir . '/webmozart/assert/src'),
     'TijsVerkoyen\\CssToInlineStyles\\' => array($vendorDir . '/tijsverkoyen/css-to-inline-styles/src'),
