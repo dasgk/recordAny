@@ -19,12 +19,12 @@ class SearchController extends Controller
         $xs = new XS(config_path('record_search.ini'));
         $search = $xs->search; // 获取 搜索对象
         $query = request('key');
-        $current_page = request('pageNum'); // 当前页
+        $current_page = request('page',1); // 当前页
         $perPage = ConstDao::PER_PAGE_SIZE; //每页的记录数 ( 常量 )
         $orderBy = request('orderBy','updated_at');
         $search->setQuery($query)
             ->setSort($orderBy, true)//按照chrono 正序排列
-            ->setLimit($perPage, ($current_page*$perPage)); // 设置搜索语句, 分页, 偏移量
+            ->setLimit($perPage, (($current_page-1)*$perPage)); // 设置搜索语句, 分页, 偏移量
         $docs = $search->search(); // 执行搜索，将搜索结果文档保存在 $docs 数组中
         $count = $search->count(); // 获取搜索结果的匹配总数估算值
         $res = array();
