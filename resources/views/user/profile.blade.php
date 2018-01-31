@@ -2,6 +2,7 @@
 <html lang="zh-CN">
 <head>
     @extends('layout.header')
+    <link rel="stylesheet" href="{{url('css/persion_space_A.css')}}">
 </head>
 <body class="home-template">
 <div class="fakeloader"></div>
