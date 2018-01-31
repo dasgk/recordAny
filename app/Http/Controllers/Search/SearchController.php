@@ -29,13 +29,13 @@ class SearchController extends Controller
         $count = $search->count(); // 获取搜索结果的匹配总数估算值
         $res = array();
         foreach ($docs as $doc) {
-            $article_id = $search->highlight($doc->article_id); // 高亮处理 subject 字段
+            $article_id = $doc->article_id; // 高亮处理 subject 字段
             $article_model = Article::find($article_id);
             $uid = $article_model->uid;
             $user_model = Users::find($uid);
             $comment_count = ArticleComment::where('article_id', $article_id)->count();
-            $title = $search->highlight($doc->title); // 高亮处理 subject 字段
-            $content = $search->highlight($doc->content); // 高亮处理 message 字段
+            $title = $doc->title; // 高亮处理 subject 字段
+            $content = $doc->content; // 高亮处理 message 字段
             $res[] = array('article_id' => $article_id, 'title' => $title, 'content' => $content, 'updated_at' => $doc->updated_at, 'look_num' => $article_model->look_num,
                 'nick_name' => $user_model->nick_name, 'comment_count' => $comment_count);
         }
