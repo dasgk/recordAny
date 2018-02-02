@@ -77,7 +77,6 @@ class ProfileController extends Controller
             //互动好友
             $res = ArticleDao::get_article_list_by_uid($uid);
         }
-
         return response_json(1, $res);
     }
 }

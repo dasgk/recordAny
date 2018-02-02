@@ -37,9 +37,7 @@ class ArticleCommentDao extends ArticleComment
     {
         $list = self::where('uid', $uid)->select('title', 'article_id', 'id','updated_at')->get();
         $data = array();
-
         foreach ($list as $item) {
-
             $data[] = array($item->id, $item->title,$item->updated_at->toDateTimeString());
         }
         $res = array('header' => array('编号', '内容', '时间'),

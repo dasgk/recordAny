@@ -53,6 +53,7 @@ class ArticleController extends Controller
         }
         $article->title = $title;
         $article->content = htmlspecialchars($content);
+        $article->content_markdown = request('mark_content');
         $article->uid = $uid;
         $article->save();
         //处理标签

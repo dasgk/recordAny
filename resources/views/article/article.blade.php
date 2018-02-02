@@ -64,7 +64,7 @@
            required/>
 </div>
 <div id="test-editormd" class="form-control">
-    <textarea style="display:none;"> {!! $article->content !!}    </textarea>
+    <textarea style="display:none;"> {!! $article->content_markdown !!}    </textarea>
 </div>
 <div class="editormd editormd-vertical editormd-theme-white" style="height:0%;border:0px solid #ddd;margin-left:16%">
     <label style="font-size:20px">标签</label>
@@ -123,11 +123,13 @@
             });
             return;
         }
+        mark_content = testEditor.getMarkdown();
         labels = $("#labels").val()
         send_ajax("{{url('articles/save_article')}}", {
             "id": $("#id").val(),
             "title": title,
             'content': content,
+            'mark_content':mark_content,
             'labels': labels,
             '_token': "{{csrf_token()}}"
         }, 'post', callback_after_save);

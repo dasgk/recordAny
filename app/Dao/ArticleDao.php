@@ -11,6 +11,7 @@ use App\Models\UserArticleRecord;
 
 class ArticleDao extends Article
 {
+
     /**
      * 获得某个用户的所有文章
      * @param $uid
@@ -27,6 +28,7 @@ class ArticleDao extends Article
         }
         return array('header' => $header, 'data' => $data);
     }
+
 
     /**
      * 内容去掉图片
