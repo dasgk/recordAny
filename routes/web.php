@@ -23,7 +23,6 @@ Route::group([
     'prefix' => 'articles',
     'namespace' => 'Article',
 ], function () {
-
     Route::get('/article_detail', 'ArticleController@article_detail');
     Route::get('/test', 'ArticleController@test');
 });

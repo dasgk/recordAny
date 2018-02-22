@@ -101,11 +101,14 @@
                     </div>
                 </main>
                 <aside class="col-md-4 sidebar">
-                    <div class="widget">
-                        <div style="margin:0 30%">
-                            <a class="btn btn-default" href="{{url('articles/')}}">发表新文章</a>
+                    <div class="widget" style="height: 80px">
+                            <div style="float: left">
+                                    <a class="btn btn-default" href="{{url('articles/')}}">发表新文章</a>
+                            </div>
+                            <div style="float: right">
+                                    <a class="btn btn-warning" onclick="logout();">退出</a>
+                            </div>
                         </div>
-                    </div>
                     <div class="widget">
                         <h4 class="title">标签云</h4>
                         <div class="content tag-cloud">
@@ -207,6 +210,12 @@
             })
             change_type('articles');
         });
+        function logout_callback() {
+            location.href = "{{url('')}}";
+        }
+        function logout() {
+            location.href = "{{url('/logout')}}";
+        }
     </script>
 </body>
 </html>
