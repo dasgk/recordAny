@@ -54,14 +54,17 @@
 </div>
 <script src="{{url('js/fakeLoader.min.js')}}"></script>
 <script>
-    function getCookie(name) {
-        var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
-        if (arr = document.cookie.match(reg))
-            return unescape(arr[2]);
-        else
-            return null;
+    function getCookie(cookieName) {
+        var strCookie = document.cookie;
+        var arrCookie = strCookie.split("; ");
+        for(var i = 0; i < arrCookie.length; i++){
+            var arr = arrCookie[i].split("=");
+            if(cookieName == arr[0]){
+                return arr[1];
+            }
+        }
+        return "";
     }
-
     window.onload = function () {
         /*
         $(".fakeloader").fakeLoader({
@@ -71,7 +74,7 @@
         });*/
         $("#body_content").show();
     };
-    cookie = getCookie('admin_username');
+    cookie = getCookie('hd_session');
     $(document).ready(function () {
 
         $.ajax({

@@ -89,7 +89,7 @@
                         <h4 class="title">标签云</h4>
                         <div class="content tag-cloud">
                             @foreach($tags as $tag)
-                                    <a href="?label={{$tag['title']}}">{{$tag['title']}}</a>
+                                    <a href="{{url('?label='.$tag['title'])}}">{{$tag['title']}}</a>
                             @endforeach
                         </div>
                     </div>
