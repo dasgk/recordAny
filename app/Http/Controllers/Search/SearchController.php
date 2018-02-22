@@ -31,6 +31,9 @@ class SearchController extends Controller
         foreach ($docs as $doc) {
             $article_id = $doc->article_id; // 高亮处理 subject 字段
             $article_model = Article::find($article_id);
+            if(empty($article_model)){
+                continue;
+            }
             $uid = $article_model->uid;
             $user_model = Users::find($uid);
             $comment_count = ArticleComment::where('article_id', $article_id)->count();

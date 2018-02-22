@@ -68,6 +68,9 @@ class ArticleDao extends Article
     public static function get_article_info_by_article_id($article_id, $reader = 0)
     {
         $item = self::find($article_id);
+        if(empty($item)){
+            return array();
+        }
         $mm_item['title'] = $item->title;
         $uid = $item->uid;
         $user = User::where('uid', $uid)->first();

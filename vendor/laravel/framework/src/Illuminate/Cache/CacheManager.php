@@ -173,6 +173,7 @@ class CacheManager implements FactoryContract
         );
 
         return $this->repository(new MemcachedStore($memcached, $prefix));
+
     }
 
     /**

@@ -115,7 +115,6 @@ class Handler extends ExceptionHandler
 		if ($request->expectsJson()) {
 			return response_json(405, [], '登录已失效，请重新登录');
 		}
-
 		return redirect()->guest('login');
 	}
 }

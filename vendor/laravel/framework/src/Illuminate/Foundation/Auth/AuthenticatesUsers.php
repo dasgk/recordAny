@@ -39,6 +39,7 @@ trait AuthenticatesUsers
         }
 
         if ($this->attemptLogin($request)) {
+
             return $this->sendLoginResponse($request);
         }
 

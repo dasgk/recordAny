@@ -70,7 +70,7 @@
                         </div>
                         <div class="post-content">
                             <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本博客所开之目的在于精炼所学技能，当前版本使用的是laravel5.4，于github上有本项目的源码。</p>
-                            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;预备在项目中使用的有<strong>迅搜</strong>，<strong>rsync</strong>，
+                            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;预备在项目中使用的有<strong>迅搜</strong>，<strong>rsync</strong>，<strong>memcached</strong>,
                                 <strong>git</strong>，<strong>pvstat</strong>，<strong>防盗链</strong>，<strong></strong></p>
 
                         </div>
@@ -88,8 +88,9 @@
                     <div class="widget">
                         <h4 class="title">标签云</h4>
                         <div class="content tag-cloud">
-                            <a href="/tag/ke-hu-duan/">客户端</a>
-                            <a href="/tag-cloud/">...</a>
+                            @foreach($tags as $tag)
+                                    <a href="?label={{$tag['title']}}">{{$tag['title']}}</a>
+                            @endforeach
                         </div>
                     </div>
                 </aside>

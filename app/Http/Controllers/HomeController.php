@@ -30,15 +30,15 @@ class HomeController extends Controller
     {
         $label = request('label');
         $label_id = 0;
-        if(!empty($label)){
+        if (!empty($label)) {
             $article_ids = LabelDao::get_article_ids_by_label($label);
-            $count =count($article_ids);
-            $article_raw_list = Article::whereIn('article_id',$article_ids)->orderBy('updated_at', 'desc')->paginate(ConstDao::PER_PAGE_SIZE);
-            $label_modal = Label::where('title','like',"%".$label."%")->first();
-            if(!empty($label_modal)){
+            $count = count($article_ids);
+            $article_raw_list = Article::whereIn('article_id', $article_ids)->orderBy('updated_at', 'desc')->paginate(ConstDao::PER_PAGE_SIZE);
+            $label_modal = Label::where('title', 'like', "%" . $label . "%")->first();
+            if (!empty($label_modal)) {
                 $label_id = $label_modal->label_id;
             }
-        }else{
+        } else {
             $count = Article::orderBy('look_num', 'desc')->count();
             $article_raw_list = Article::orderBy('look_num', 'desc')->orderBy('updated_at', 'desc')->paginate(ConstDao::PER_PAGE_SIZE);
         }
@@ -64,26 +64,20 @@ class HomeController extends Controller
      */
     public function about()
     {
-        return view('about');
+        $infoList['tags'] = LabelDao::get_lable_for_index();
+        return view('about', $infoList);
     }
 
     public function getIp()
     {
 
-        if(!empty($_SERVER["HTTP_CLIENT_IP"]))
-        {
+        if (!empty($_SERVER["HTTP_CLIENT_IP"])) {
             $cip = $_SERVER["HTTP_CLIENT_IP"];
-        }
-        else if(!empty($_SERVER["HTTP_X_FORWARDED_FOR"]))
-        {
+        } else if (!empty($_SERVER["HTTP_X_FORWARDED_FOR"])) {
             $cip = $_SERVER["HTTP_X_FORWARDED_FOR"];
-        }
-        else if(!empty($_SERVER["REMOTE_ADDR"]))
-        {
+        } else if (!empty($_SERVER["REMOTE_ADDR"])) {
             $cip = $_SERVER["REMOTE_ADDR"];
-        }
-        else
-        {
+        } else {
             $cip = '';
         }
         preg_match("/[\d\.]{7,15}/", $cip, $cips);
