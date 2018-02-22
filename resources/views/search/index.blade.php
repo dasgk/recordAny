@@ -161,14 +161,6 @@
                 <div class="col-sm-12 col-md-3 aw-side-bar hidden-xs hidden-sm">
                     <div class="aw-mod aw-text-align-justify">
                         <div class="mod-head">
-                            <a href="http://wenda.ghostchina.com/topic/channel-hot" class="pull-right">更多 &gt;</a>
-                            <h3>热门话题</h3>
-                        </div>
-                        <div class="mod-body">
-                        </div>
-                    </div>
-                    <div class="aw-mod aw-text-align-justify">
-                        <div class="mod-head">
                             <a href="http://wenda.ghostchina.com/people/" class="pull-right">更多 &gt;</a>
                             <h3>热门用户</h3>
                         </div>
