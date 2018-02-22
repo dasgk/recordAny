@@ -110,6 +110,7 @@ class HomeController extends Controller
         $stat->num = $num;
         $stat->save();
         //UV统计
+        /*
         $stat = UvStat::where('url', $url)->where('stat_time', $hour)->where('cookie', $cookie)->first();
         if (empty($stat)) {
             $stat = new UvStat();
@@ -124,6 +125,7 @@ class HomeController extends Controller
         $stat->url = $url;
         $stat->num = $num;
         $stat->save();
+        */
         //ip统计
         $stat = IPStat::where('url', $url)->where('stat_time', $hour)->where('ip', $this->getIp())->first();
         if (empty($stat)) {
