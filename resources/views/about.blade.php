@@ -60,7 +60,7 @@
     <section class="content-wrap">
         <div class="container">
             <div class="row">
-                <main class="col-md-8 main-content">
+                <main class="col-md-8 main-content" style="    margin-left: 15%;">
 
                     <article id=109 class="post tag-android tag-ke-hu-duan">
 
@@ -76,7 +76,7 @@
                         </div>
                     </article>
                 </main>
-
+                <!--
                 <aside class="col-md-4 sidebar">
                     <div class="widget">
                         <h4 class="title">用户信息</h4>
@@ -94,6 +94,7 @@
                         </div>
                     </div>
                 </aside>
+                -->
             </div>
         </div>
 
