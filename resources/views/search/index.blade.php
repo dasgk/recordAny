@@ -57,9 +57,11 @@
 
         <div class="aw-user-nav">
             <span>
+                <!--
 						<a class="register btn btn-normal btn-success"
                            href="http://wenda.ghostchina.com/account/register/">注册</a>
 						<a class="login btn btn-normal btn-primary" href="http://wenda.ghostchina.com/login/">登录</a>
+			    -->
 					</span>
         </div>
     </div>

@@ -62,7 +62,6 @@ class LabelDao extends Label
                 $labels[] = array('title'=>$item->title,'id'=>$item->label_id);
             }
         }
-
         return $labels;
     }
 
